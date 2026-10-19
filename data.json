@@ -31,6 +31,8 @@
     "footerText": "Toto Aromística • Sahumerios • Aromatizantes Saphirus • Belleza & Tecnología • Herramientas",
     "geminiApiKey": "",
     "botName": "AromaBot",
+    "jsonBinId": "",
+    "jsonBinKey": "",
     "githubToken": ""
   },
   "products": [

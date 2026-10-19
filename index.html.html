@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toto Aromística | Sahumerios, Saphirus, Tecnología y Más</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        carmel: {
+                            50: '#fdfbf7',
+                            100: '#f7f2ea',
+                            200: '#ede2d3',
+                            600: '#8c6d53',
+                            700: '#6e533d',
+                            800: '#523e2d',
+                            900: '#38291e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
+        .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-carmel-50 text-carmel-900 antialiased selection:bg-carmel-200 selection:text-carmel-900">
+
+    <!-- BARRA DE ANUNCIO SUPERIOR -->
+    <div class="bg-carmel-900 text-carmel-100 text-xs py-2 px-4 text-center font-medium tracking-wide">
+        ✨ 3 cuotas sin interés en compras superiores a $30.000 | Contacto directo: <a href="https://wa.me/541151363290" target="_blank" class="underline hover:text-amber-300">WhatsApp 541151363290</a> 🚚
+    </div>
+
+    <!-- HEADER / NAVEGACIÓN -->
+    <header class="sticky top-0 z-50 glass border-b border-carmel-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2">
+                <span class="text-2xl font-bold tracking-tight text-carmel-900">Toto <span class="text-carmel-600 font-light">Aromística</span></span>
+            </a>
+
+            <!-- Buscador Central Desktop -->
+            <div class="hidden md:flex items-center relative w-96">
+                <input type="text" id="searchInput" placeholder="Buscar sahumerios, saphirus, tecnología..." 
+                    class="w-full bg-carmel-100/70 border border-carmel-200 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-carmel-600 transition"
+                    oninput="filterProducts(this.value)">
+                <i class="fas fa-search absolute right-4 text-carmel-600 text-sm"></i>
+            </div>
+
+            <!-- Menú de Enlaces -->
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium">
+                <a href="#inicio" class="hover:text-carmel-600 transition">Inicio</a>
+                <a href="#catalogo" class="hover:text-carmel-600 transition">Catálogo</a>
+                <a href="#ofertas" class="hover:text-carmel-600 transition">Ofertas</a>
+                <a href="#nosotros" class="hover:text-carmel-600 transition">Sobre Nosotros</a>
+                <a href="#contacto" class="hover:text-carmel-600 transition">Contacto</a>
+            </nav>
+
+            <!-- Carrito y Botón Menú Móvil -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleCart()" class="relative bg-carmel-900 text-white p-3 rounded-full hover:bg-carmel-800 transition shadow-sm flex items-center justify-center">
+                    <i class="fas fa-shopping-bag text-sm"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-carmel-900 p-2 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Buscador Móvil -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative w-full">
+                <input type="text" placeholder="Buscar productos..." 
+                    class="w-full bg-carmel-100 border border-carmel-200 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-carmel-600"
+                    oninput="filterProducts(this.value)">
+                <i class="fas fa-search absolute right-4 text-carmel-600 text-sm top-3"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- MENÚ MÓVIL DESPLEGABLE -->
+    <div id="mobileMenu" class="hidden fixed inset-0 z-40 bg-carmel-900/40 backdrop-blur-sm lg:hidden">
+        <div class="bg-carmel-50 w-72 h-full shadow-2xl p-6 flex flex-col gap-6">
+            <div class="flex justify-between items-center border-b border-carmel-200 pb-4">
+                <span class="font-bold text-lg">Menú</span>
+                <button onclick="toggleMobileMenu()" class="text-carmel-900 text-lg"><i class="fas fa-times"></i></button>
+            </div>
+            <a href="#inicio" onclick="toggleMobileMenu()" class="font-medium text-lg hover:text-carmel-600">Inicio</a>
+            <a href="#catalogo" onclick="toggleMobileMenu()" class="font-medium text-lg hover:text-carmel-600">Catálogo</a>
+            <a href="#ofertas" onclick="toggleMobileMenu()" class="font-medium text-lg hover:text-carmel-600">Ofertas</a>
+            <a href="#nosotros" onclick="toggleMobileMenu()" class="font-medium text-lg hover:text-carmel-600">Sobre Nosotros</a>
+            <a href="#contacto" onclick="toggleMobileMenu()" class="font-medium text-lg hover:text-carmel-600">Contacto</a>
+            <button onclick="openAdminModal()" class="mt-auto bg-carmel-200 text-carmel-900 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2">
+                <i class="fas fa-cog"></i> Panel Administrador
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-b from-carmel-100/50 to-carmel-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="flex flex-col gap-6">
+                <span class="inline-flex items-center gap-2 bg-carmel-200/70 text-carmel-800 text-xs font-semibold px-3 py-1.5 rounded-full w-max">
+                    <i class="fas fa-sparkles text-amber-700"></i> Aromas, Tendencias y Utilidades
+                </span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-carmel-900 leading-tight">
+                    Transformá tus espacios, potenciá tu día a día.
+                </h1>
+                <p class="text-lg text-carmel-700 font-normal">
+                    Descubrí nuestra selección exclusiva de sahumerios artesanales, aromatizantes Saphirus, tecnología en tendencia, pavas eléctricas y herramientas prácticas.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#catalogo" class="bg-carmel-900 text-white font-medium px-8 py-4 rounded-full hover:bg-carmel-800 transition shadow-lg shadow-carmel-900/10 text-center">
+                        Ver Catálogo Completo
+                    </a>
+                    <a href="#ofertas" class="bg-white border border-carmel-300 text-carmel-900 font-medium px-8 py-4 rounded-full hover:bg-carmel-100 transition text-center">
+                        Ver Ofertas 🔥
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="absolute -inset-1 bg-gradient-to-r from-carmel-600 to-amber-600 rounded-3xl blur opacity-25"></div>
+                <div class="relative bg-white p-6 rounded-3xl border border-carmel-200 shadow-xl flex flex-col gap-4">
+                    <div class="bg-carmel-100 rounded-2xl h-64 flex items-center justify-center overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80" alt="Aromatizantes y Sahumerios" class="w-full h-full object-cover">
+                        <span class="absolute bottom-4 left-4 bg-carmel-900/80 backdrop-blur text-white text-xs px-3 py-1.5 rounded-full font-medium">Destacado ⭐</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-lg">Kit Esencial Saphirus + Sahumerios</h3>
+                            <p class="text-sm text-carmel-600">Aromatizante textil y ambiental + varillas premium</p>
+                        </div>
+                        <span class="text-xl font-bold text-carmel-900">$12.500</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARRUSEL / DESTACADOS -->
+    <section class="py-12 bg-white border-y border-carmel-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-carmel-600 font-bold">Tendencia</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-carmel-900 mt-1">Los más elegidos de la semana</h2>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="bestSellersContainer"></div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO CON FILTROS -->
+    <section id="catalogo" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-xs uppercase tracking-widest text-carmel-600 font-bold">Explorá la tienda</span>
+            <h2 class="text-3xl font-bold text-carmel-900 mt-1">Catálogo de Productos</h2>
+            <p class="text-carmel-700 text-sm mt-2">Filtrá por categoría para encontrar justo lo que buscás.</p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <button onclick="filterCategory('todos')" class="filter-btn active bg-carmel-900 text-white px-5 py-2.5 rounded-full text-sm font-medium transition shadow-sm">Todos</button>
+            <button onclick="filterCategory('sahumerios')" class="filter-btn bg-white border border-carmel-300 text-carmel-900 px-5 py-2.5 rounded-full text-sm font-medium hover:bg-carmel-100 transition">Sahumerios y Saphirus</button>
+            <button onclick="filterCategory('tecnologia')" class="filter-btn bg-white border border-carmel-300 text-carmel-900 px-5 py-2.5 rounded-full text-sm font-medium hover:bg-carmel-100 transition">Tecnología y Belleza</button>
+            <button onclick="filterCategory('hogar')" class="filter-btn bg-white border border-carmel-300 text-carmel-900 px-5 py-2.5 rounded-full text-sm font-medium hover:bg-carmel-100 transition">Pavas, Herramientas y Más</button>
+            <button onclick="filterCategory('infoproductos')" class="filter-btn bg-white border border-carmel-300 text-carmel-900 px-5 py-2.5 rounded-full text-sm font-medium hover:bg-carmel-100 transition">Infoproductos</button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productGrid"></div>
+    </section>
+
+    <!-- SECCIÓN DE OFERTAS -->
+    <section id="ofertas" class="py-16 bg-gradient-to-r from-carmel-900 to-carmel-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+                <div>
+                    <span class="bg-amber-600/30 text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/30">OFERTAS FLASH ⚡</span>
+                    <h2 class="text-3xl font-bold mt-2">Descuentos por tiempo limitado</h2>
+                    <p class="text-carmel-200 text-sm mt-1">Aprovechá precios exclusivos antes de que se agoten.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10 text-center">
+                    <span class="text-xs text-carmel-200 block">Termina en:</span>
+                    <span id="countdown" class="text-xl font-bold tracking-wider text-amber-300">12:45:30</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="ofertasContainer"></div>
+        </div>
+    </section>
+
+    <!-- SOBRE NOSOTROS -->
+    <section id="nosotros" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white border border-carmel-200 rounded-3xl p-8 sm:p-12 shadow-xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div class="flex flex-col gap-4">
+                <span class="text-xs uppercase tracking-widest text-carmel-600 font-bold">Nuestra Esencia</span>
+                <h2 class="text-3xl font-bold text-carmel-900">Sobre Toto Aromística</h2>
+                <p class="text-carmel-700 leading-relaxed text-sm">
+                    Nacimos con el propósito de llevar armonía, bienestar y practicidad a cada hogar. Combinamos la calidez de los sahumerios y fragancias Saphirus con la utilidad de productos en tendencia, tecnología seleccionada y herramientas confiables.
+                </p>
+                <div class="flex gap-6 pt-2">
+                    <div>
+                        <span class="text-2xl font-bold text-carmel-900 block">+1000</span>
+                        <span class="text-xs text-carmel-600">Clientes felices</span>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold text-carmel-900 block">100%</span>
+                        <span class="text-xs text-carmel-600">Confianza</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-carmel-100 rounded-2xl h-80 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80" alt="Tienda Toto Aromística" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULARIO DE CONTACTO CON DATOS INTEGRADOS -->
+    <section id="contacto" class="py-16 bg-carmel-100/60 border-t border-carmel-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-xs uppercase tracking-widest text-carmel-600 font-bold">Estamos para ayudarte</span>
+                <h2 class="text-3xl font-bold text-carmel-900 mt-1">Contacto Directo</h2>
+                <p class="text-carmel-700 text-sm mt-2">Escribinos directamente por WhatsApp o vía correo electrónico.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <a href="https://wa.me/541151363290" target="_blank" class="bg-white p-6 rounded-2xl border border-carmel-200 shadow-sm flex flex-col items-center text-center hover:border-emerald-500 transition">
+                    <i class="fab fa-whatsapp text-3xl text-emerald-600 mb-2"></i>
+                    <span class="font-bold text-sm text-carmel-900">WhatsApp</span>
+                    <span class="text-xs text-carmel-600 mt-1">541151363290</span>
+                </a>
+                <a href="mailto:sahumerioshema@gmail.com" class="bg-white p-6 rounded-2xl border border-carmel-200 shadow-sm flex flex-col items-center text-center hover:border-carmel-600 transition">
+                    <i class="far fa-envelope text-3xl text-carmel-800 mb-2"></i>
+                    <span class="font-bold text-sm text-carmel-900">Email Directo</span>
+                    <span class="text-xs text-carmel-600 mt-1">sahumerioshema@gmail.com</span>
+                </a>
+                <div class="bg-white p-6 rounded-2xl border border-carmel-200 shadow-sm flex flex-col items-center text-center">
+                    <i class="fas fa-truck text-3xl text-amber-700 mb-2"></i>
+                    <span class="font-bold text-sm text-carmel-900">Zona de Envíos</span>
+                    <span class="text-xs text-carmel-600 mt-1">Claypole, GBA y Envíos Nacionales</span>
+                </div>
+            </div>
+
+            <form onsubmit="handleContact(event)" class="bg-white p-8 rounded-3xl border border-carmel-200 shadow-xl flex flex-col gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-carmel-800">Nombre</label>
+                        <input type="text" id="nombreContacto" required placeholder="Tu nombre" class="bg-carmel-50 border border-carmel-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-carmel-600">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-carmel-800">Correo Electrónico / WhatsApp</label>
+                        <input type="text" id="emailContacto" required placeholder="Tu contacto" class="bg-carmel-50 border border-carmel-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-carmel-600">
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-carmel-800">Mensaje</label>
+                    <textarea id="mensajeContacto" rows="4" required placeholder="¿En qué podemos ayudarte?" class="bg-carmel-50 border border-carmel-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-carmel-600"></textarea>
+                </div>
+                <button type="submit" class="bg-carmel-900 text-white font-medium py-4 rounded-xl hover:bg-carmel-800 transition shadow-md">
+                    Enviar Mensaje
+                </button>
+                <div id="formSuccess" class="hidden text-emerald-700 text-sm font-medium text-center bg-emerald-50 p-3 rounded-xl border border-emerald-200">
+                    ¡Mensaje enviado con éxito! Te responderemos a la brevedad.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-carmel-900 text-carmel-200 py-12 border-t border-carmel-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="flex flex-col gap-4">
+                <span class="text-xl font-bold text-white">Toto Aromística</span>
+                <p class="text-xs text-carmel-300 leading-relaxed">
+                    Sahumerios, Saphirus, tecnología, pavas y tendencia.
+                </p>
+                <p class="text-xs text-carmel-400">
+                    ✉️ sahumerioshema@gmail.com<br>
+                    📱 +54 11 5136-3290
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-3 text-sm">Navegación</h4>
+                <ul class="flex flex-col gap-2 text-xs">
+                    <li><a href="#inicio" class="hover:text-white transition">Inicio</a></li>
+                    <li><a href="#catalogo" class="hover:text-white transition">Catálogo</a></li>
+                    <li><a href="#ofertas" class="hover:text-white transition">Ofertas</a></li>
+                    <li><a href="#contacto" class="hover:text-white transition">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-3 text-sm">Categorías</h4>
+                <ul class="flex flex-col gap-2 text-xs">
+                    <li><a href="#catalogo" onclick="filterCategory('sahumerios')" class="hover:text-white transition">Sahumerios y Saphirus</a></li>
+                    <li><a href="#catalogo" onclick="filterCategory('tecnologia')" class="hover:text-white transition">Tecnología y Belleza</a></li>
+                    <li><a href="#catalogo" onclick="filterCategory('hogar')" class="hover:text-white transition">Pavas y Herramientas</a></li>
+                    <li><a href="#catalogo" onclick="filterCategory('infoproductos')" class="hover:text-white transition">Infoproductos</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h4 class="text-white font-semibold mb-3 text-sm">Seguridad</h4>
+                    <p class="text-xs text-carmel-300 leading-relaxed">
+                        🛡️ Compra 100% segura directa por WhatsApp.
+                    </p>
+                </div>
+                <!-- Botón Discreto para Administrar -->
+                <button onclick="openAdminModal()" class="text-xs text-carmel-400 hover:text-amber-300 text-left mt-4 underline">
+                    ⚙️ Panel Admin de Carga
+                </button>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-carmel-800 pt-6 text-center text-xs text-carmel-400">
+            &copy; 2026 Toto Aromística. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- MODAL DE CARRITO -->
+    <div id="cartModal" class="hidden fixed inset-0 z-50 overflow-hidden">
+        <div class="absolute inset-0 bg-carmel-900/50 backdrop-blur-sm" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-carmel-200 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-shopping-bag text-carmel-900"></i>
+                        <h3 class="font-bold text-lg text-carmel-900">Tu Carrito</h3>
+                    </div>
+                    <button onclick="toggleCart()" class="text-carmel-600 hover:text-carmel-900 text-lg"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-4" id="cartItemsContainer">
+                    <p class="text-center text-carmel-600 text-sm my-auto">Tu carrito está vacío.</p>
+                </div>
+                <div class="p-6 border-t border-carmel-200 flex flex-col gap-4 bg-carmel-50">
+                    <div class="flex justify-between items-center font-bold text-lg text-carmel-900">
+                        <span>Total:</span>
+                        <span id="cartTotalPrice">$0</span>
+                    </div>
+                    <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 text-white font-medium py-3.5 rounded-xl hover:bg-emerald-700 transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20">
+                        <i class="fab fa-whatsapp text-lg"></i> Finalizar Compra por WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE PANEL DE ADMINISTRACIÓN / CARGA DE PRODUCTOS -->
+    <div id="adminModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-carmel-900/60 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-3xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-carmel-200 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-carmel-200 pb-4 mb-6">
+                <div>
+                    <h3 class="text-xl font-bold text-carmel-900">Panel de Administrador (Carga de Productos)</h3>
+                    <p class="text-xs text-carmel-600">Agregá, editá o eliminá productos fácilmente.</p>
+                </div>
+                <button onclick="closeAdminModal()" class="text-carmel-600 hover:text-carmel-900 text-xl"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Formulario de Agregar / Editar -->
+            <form id="adminProductForm" onsubmit="saveProductFromAdmin(event)" class="bg-carmel-50 p-6 rounded-2xl border border-carmel-200 mb-8 flex flex-col gap-4">
+                <h4 class="font-bold text-sm text-carmel-900" id="formTitle">Agregar Nuevo Producto</h4>
+                <input type="hidden" id="adminProductId">
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-carmel-800">Nombre del Producto</label>
+                        <input type="text" id="adminName" required class="bg-white border border-carmel-200 rounded-xl px-3 py-2 text-sm focus:outline-none">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-carmel-800">Categoría</label>
+                        <select id="adminCategory" class="bg-white border border-carmel-200 rounded-xl px-3 py-2 text-sm focus:outline-none">
+                            <option value="sahumerios">Sahumerios y Saphirus</option>
+                            <option value="tecnologia">Tecnología y Belleza</option>
+                            <option value="hogar">Pavas, Herramientas y Más</option>
+                            <option value="infoproductos">Infoproductos</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-carmel-800">Precio ($)</label>
+                        <input type="number" id="adminPrice" required class="bg-white border border-carmel-200 rounded-xl px-3 py-2 text-sm focus:outline-none">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-carmel-800">Precio Anterior / Tachado ($) (Opcional)</label>
+                        <input type="number" id="adminOldPrice" class="bg-white border border-carmel-200 rounded-xl px-3 py-2 text-sm focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-carmel-800">Etiqueta / Badge</label>
+                        <input type="text" id="adminBadge" placeholder="Ej: Más Vendido, Saphirus, Tendencia" class="bg-white border border-carmel-200 rounded-xl px-3 py-2 text-sm focus:outline-none">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-carmel-800">Imagen (Subir Archivo o URL)</label>
+                        <input type="file" id="adminImageFile" accept="image/*" onchange="handleImageUpload(event)" class="text-xs text-carmel-700 bg-white border border-carmel-200 rounded-xl p-1.5">
+                        <input type="text" id="adminImageUrl" placeholder="O pegá un link directo (http...)" class="bg-white border border-carmel-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none mt-1">
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 my-1">
+                    <input type="checkbox" id="adminIsOffer" class="rounded text-carmel-900">
+                    <label for="adminIsOffer" class="text-xs font-semibold text-carmel-800">Mostrar en la sección Ofertas Flash</label>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="submit" class="bg-carmel-900 text-white font-medium px-6 py-2.5 rounded-xl text-xs hover:bg-carmel-800 transition">
+                        Guardar Producto
+                    </button>
+                    <button type="button" onclick="resetAdminForm()" class="bg-white border border-carmel-300 text-carmel-900 font-medium px-4 py-2.5 rounded-xl text-xs hover:bg-carmel-100 transition">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+
+            <!-- Lista de Productos Cargados -->
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="font-bold text-sm text-carmel-900">Productos Existentes</h4>
+                <button onclick="exportProductsCode()" class="bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-emerald-800 transition flex items-center gap-1">
+                    <i class="fas fa-code"></i> Copiar Código JS de Productos
+                </button>
+            </div>
+            <div class="flex flex-col gap-3" id="adminProductsList"></div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE LÓGICA Y DATOS -->
+    <script>
+        const WHATSAPP_NUMBER = "541151363290";
+        const ADMIN_PASSWORD = "100721"; // CONTRASEÑA ACTUALIZADA
+
+        let products = [
+            {
+                id: 1,
+                name: "Kit Sahumerios Artesanales Premium",
+                category: "sahumerios",
+                price: 4800,
+                oldPrice: 6000,
+                image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80",
+                badge: "Más Vendido",
+                isOffer: true
+            },
+            {
+                id: 2,
+                name: "Aromatizante Saphirus Textil y Ambiental",
+                category: "sahumerios",
+                price: 6500,
+                oldPrice: 8000,
+                image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80",
+                badge: "Saphirus Oficial",
+                isOffer: true
+            },
+            {
+                id: 3,
+                name: "Difusor de Aromas Eléctrico USB con Luz",
+                category: "tecnologia",
+                price: 14900,
+                oldPrice: 18500,
+                image: "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=600&q=80",
+                badge: "Tendencia",
+                isOffer: true
+            },
+            {
+                id: 4,
+                name: "Espejo LED de Belleza Recargable",
+                category: "tecnologia",
+                price: 18200,
+                oldPrice: 22000,
+                image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80",
+                badge: "Belleza",
+                isOffer: false
+            },
+            {
+                id: 5,
+                name: "Pava Eléctrica Estilo Vintage con Corte Mate",
+                category: "hogar",
+                price: 28900,
+                oldPrice: 35000,
+                image: "https://images.unsplash.com/photo-1563822249548-9a7a8e56d497?auto=format&fit=crop&w=600&q=80",
+                badge: "Hogar",
+                isOffer: true
+            },
+            {
+                id: 6,
+                name: "Mini Taladro Inalámbrico Multiuso",
+                category: "hogar",
+                price: 34000,
+                oldPrice: 41000,
+                image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80",
+                badge: "Herramientas",
+                isOffer: false
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'todos';
+        let searchQuery = '';
+        let uploadedBase64Image = '';
+
+        if (localStorage.getItem('toto_products')) {
+            try {
+                products = JSON.parse(localStorage.getItem('toto_products'));
+            } catch(e) {}
+        }
+
+        function saveProductsToStorage() {
+            localStorage.setItem('toto_products', JSON.stringify(products));
+            renderProducts();
+            renderAdminProductsList();
+        }
+
+        function sanitizeInput(str) {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const bestSellers = document.getElementById('bestSellersContainer');
+            const offersContainer = document.getElementById('ofertasContainer');
+
+            let filtered = products.filter(p => {
+                const matchesCategory = currentFilter === 'todos' || p.category === currentFilter;
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-carmel-600">No se encontraron productos en esta categoría.</div>`;
+            } else {
+                grid.innerHTML = filtered.map(p => productCardTemplate(p)).join('');
+            }
+
+            const topSellers = products.filter(p => p.badge === 'Más Vendido' || p.badge === 'Tendencia').slice(0, 4);
+            bestSellers.innerHTML = topSellers.length > 0 
+                ? topSellers.map(p => productCardTemplate(p)).join('')
+                : products.slice(0, 4).map(p => productCardTemplate(p)).join('');
+
+            const flashOffers = products.filter(p => p.isOffer);
+            offersContainer.innerHTML = flashOffers.map(p => productCardTemplate(p, true)).join('');
+        }
+
+        function productCardTemplate(p, darkTheme = false) {
+            const discount = (p.oldPrice && p.oldPrice > p.price) ? Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100) : 0;
+            return `
+                <div class="bg-white rounded-3xl border border-carmel-200/80 overflow-hidden shadow-sm hover:shadow-xl transition duration-300 flex flex-col group fade-in">
+                    <div class="relative h-56 bg-carmel-100 overflow-hidden">
+                        <img src="${p.image || 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        ${p.badge ? `<span class="absolute top-3 left-3 bg-carmel-900 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">${p.badge}</span>` : ''}
+                        ${discount > 0 ? `<span class="absolute top-3 right-3 bg-amber-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">-${discount}%</span>` : ''}
+                    </div>
+                    <div class="p-5 flex flex-col flex-1 justify-between gap-4">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="font-bold text-carmel-900 text-base leading-snug">${p.name}</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-xl font-bold text-carmel-900">$${Number(p.price).toLocaleString('es-AR')}</span>
+                                ${p.oldPrice ? `<span class="text-xs text-carmel-600 line-through">$${Number(p.oldPrice).toLocaleString('es-AR')}</span>` : ''}
+                            </div>
+                        </div>
+                        <button onclick="addToCart(${p.id})" class="w-full bg-carmel-900 text-white font-medium py-3 rounded-xl hover:bg-carmel-800 transition flex items-center justify-center gap-2 text-sm shadow-sm">
+                            <i class="fas fa-cart-plus"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterCategory(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-carmel-900', 'text-white');
+                btn.classList.add('bg-white', 'border', 'border-carmel-300', 'text-carmel-900');
+            });
+            event.target.classList.remove('bg-white', 'border', 'border-carmel-300', 'text-carmel-900');
+            event.target.classList.add('bg-carmel-900', 'text-white');
+            renderProducts();
+        }
+
+        function filterProducts(query) {
+            searchQuery = sanitizeInput(query);
+            renderProducts();
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cartCount');
+            const container = document.getElementById('cartItemsContainer');
+            const totalElem = document.getElementById('cartTotalPrice');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            countElem.textContent = totalCount;
+            totalElem.textContent = `$${totalPrice.toLocaleString('es-AR')}`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center text-carmel-600 text-sm my-auto">Tu carrito está vacío.</p>`;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between gap-4 bg-carmel-50 p-3 rounded-2xl border border-carmel-200">
+                    <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-xl">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-xs text-carmel-900">${item.name}</h4>
+                        <span class="text-xs text-carmel-600">$${item.price.toLocaleString('es-AR')} x ${item.quantity}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="changeQuantity(${item.id}, -1)" class="w-7 h-7 bg-white border border-carmel-300 rounded-lg flex items-center justify-center text-xs font-bold">-</button>
+                        <span class="text-xs font-bold">${item.quantity}</span>
+                        <button onclick="changeQuantity(${item.id}, 1)" class="w-7 h-7 bg-white border border-carmel-300 rounded-lg flex items-center justify-center text-xs font-bold">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function changeQuantity(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return alert('Tu carrito está vacío.');
+            let message = "Hola! Quiero realizar el siguiente pedido desde *Toto Aromística*:\n\n";
+            cart.forEach(item => {
+                message += `• ${item.quantity}x ${item.name} ($${(item.price * item.quantity).toLocaleString('es-AR')})\n`;
+            });
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `\n*Total a abonar: $${totalPrice.toLocaleString('es-AR')}*\n\n¿Me confirman stock y datos para coordinar el pago y envío?`;
+            
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            document.getElementById('formSuccess').classList.remove('hidden');
+            e.target.reset();
+            setTimeout(() => {
+                document.getElementById('formSuccess').classList.add('hidden');
+            }, 4000);
+        }
+
+        // LÓGICA DEL PANEL ADMIN CON CONTRASEÑA 100721
+        function openAdminModal() {
+            const pass = prompt('Ingrese la contraseña de administración:', '');
+            if (pass === ADMIN_PASSWORD) {
+                document.getElementById('adminModal').classList.remove('hidden');
+                renderAdminProductsList();
+            } else if (pass !== null) {
+                alert('Contraseña incorrecta.');
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+            resetAdminForm();
+        }
+
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    uploadedBase64Image = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveProductFromAdmin(e) {
+            e.preventDefault();
+            const id = document.getElementById('adminProductId').value;
+            const name = document.getElementById('adminName').value;
+            const category = document.getElementById('adminCategory').value;
+            const price = parseFloat(document.getElementById('adminPrice').value);
+            const oldPrice = parseFloat(document.getElementById('adminOldPrice').value) || null;
+            const badge = document.getElementById('adminBadge').value;
+            const isOffer = document.getElementById('adminIsOffer').checked;
+            const urlImg = document.getElementById('adminImageUrl').value;
+
+            const finalImage = uploadedBase64Image || urlImg || 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80';
+
+            if (id) {
+                const index = products.findIndex(p => p.id == id);
+                if (index !== -1) {
+                    products[index] = { id: parseInt(id), name, category, price, oldPrice, image: finalImage, badge, isOffer };
+                }
+            } else {
+                const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+                products.push({ id: newId, name, category, price, oldPrice, image: finalImage, badge, isOffer });
+            }
+
+            saveProductsToStorage();
+            resetAdminForm();
+        }
+
+        function editProductFromAdmin(id) {
+            const p = products.find(prod => prod.id == id);
+            if (!p) return;
+
+            document.getElementById('formTitle').textContent = 'Editar Producto';
+            document.getElementById('adminProductId').value = p.id;
+            document.getElementById('adminName').value = p.name;
+            document.getElementById('adminCategory').value = p.category;
+            document.getElementById('adminPrice').value = p.price;
+            document.getElementById('adminOldPrice').value = p.oldPrice || '';
+            document.getElementById('adminBadge').value = p.badge || '';
+            document.getElementById('adminIsOffer').checked = p.isOffer || false;
+            document.getElementById('adminImageUrl').value = p.image.startsWith('data:') ? '' : p.image;
+            uploadedBase64Image = p.image.startsWith('data:') ? p.image : '';
+        }
+
+        function deleteProductFromAdmin(id) {
+            if (confirm('¿Seguro que querés eliminar este producto?')) {
+                products = products.filter(p => p.id != id);
+                saveProductsToStorage();
+            }
+        }
+
+        function resetAdminForm() {
+            document.getElementById('formTitle').textContent = 'Agregar Nuevo Producto';
+            document.getElementById('adminProductForm').reset();
+            document.getElementById('adminProductId').value = '';
+            uploadedBase64Image = '';
+        }
+
+        function renderAdminProductsList() {
+            const list = document.getElementById('adminProductsList');
+            list.innerHTML = products.map(p => `
+                <div class="flex items-center justify-between bg-white p-3 rounded-xl border border-carmel-200 text-xs">
+                    <div class="flex items-center gap-3">
+                        <img src="${p.image}" class="w-10 h-10 object-cover rounded-lg">
+                        <div>
+                            <span class="font-bold block text-carmel-900">${p.name}</span>
+                            <span class="text-carmel-600">$${p.price.toLocaleString('es-AR')} | ${p.category}</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editProductFromAdmin(${p.id})" class="bg-carmel-100 text-carmel-900 px-3 py-1.5 rounded-lg font-semibold hover:bg-carmel-200">Editar</button>
+                        <button onclick="deleteProductFromAdmin(${p.id})" class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg font-semibold hover:bg-red-100">Borrar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function exportProductsCode() {
+            const code = `let products = ${JSON.stringify(products, null, 4)};`;
+            navigator.clipboard.writeText(code);
+            alert('¡Código de productos copiado! Reemplazá la variable `let products = [...]` en tu archivo index.html para fijarlos en el código fuente.');
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'F2') openAdminModal();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+    </script>
+</body>
+</html>

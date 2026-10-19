@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toto Aromística | Sahumerios, Saphirus, Tecnología y Herramientas</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        carmel: {
+                            50: '#fdfbf7',
+                            100: '#f7f2ea',
+                            200: '#ede2d3',
+                            600: '#8c6d53',
+                            700: '#6e533d',
+                            800: '#523e2d',
+                            900: '#38291e',
+                        },
+                        cyber: {
+                            50: '#f0fdfa',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            900: '#083344',
+                        },
+                        garage: {
+                            50: '#fafaf9',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            900: '#1c1917',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-glow': 'pulseGlow 2.5s infinite',
+                        'radar': 'radarPulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-7px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.04)' },
+                        },
+                        radarPulse: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0.8' },
+                            '100%': { transform: 'scale(1.6)', opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&family=Cinzel:wght@600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            overflow-x: hidden; 
+            transition: background-color 0.4s ease, color 0.4s ease; 
+        }
+        .glass { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(16px); }
+        .dark .glass { background: rgba(18, 16, 14, 0.90); backdrop-filter: blur(16px); }
+        
+        .card-hover { 
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .card-hover:hover { 
+            transform: translateY(-8px) scale(1.015); 
+            box-shadow: 0 20px 30px -10px rgba(56, 41, 30, 0.18); 
+        }
+
+        /* TEMATIZACIONES POR CATEGORÍA */
+        body.theme-sahumerios { 
+            background: radial-gradient(circle at top right, #fbf7f0 0%, #fdfbf7 100%);
+            color: #38291e;
+        }
+        body.theme-tecnologia { 
+            background: radial-gradient(circle at top right, #f0fdf4 0%, #f8fafc 100%);
+            color: #0f172a; 
+        }
+        body.theme-herramientas { 
+            background: radial-gradient(circle at top right, #fff7ed 0%, #fafaf9 100%);
+            color: #1c1917; 
+        }
+
+        /* MODO OSCURO */
+        .dark body, body.dark { 
+            background: #09090b !important; 
+            color: #f4f4f5 !important; 
+        }
+        .dark .bg-white { background-color: #18181b !important; }
+        .dark .bg-carmel-50 { background-color: #121214 !important; }
+        .dark .bg-carmel-100 { background-color: #27272a !important; }
+        .dark .border-carmel-200 { border-color: #27272a !important; }
+
+        /* DECORACIONES TEMÁTICAS */
+        .theme-badge-sahumerios {
+            background: linear-gradient(135deg, #8c6d53, #523e2d);
+            box-shadow: 0 4px 12px rgba(140, 109, 83, 0.25);
+        }
+        .theme-badge-tecnologia {
+            background: linear-gradient(135deg, #0284c7, #06b6d4);
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35);
+        }
+        .theme-badge-herramientas {
+            background: linear-gradient(135deg, #ea580c, #b45309);
+            box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
+        }
+
+        /* BOTONES GENERALES */
+        .gen-btn {
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75em 1.5em;
+            font-size: 0.875rem;
+            font-weight: 700;
+            width: 100%;
+            border-radius: 9999px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #38291e;
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(56, 41, 30, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark .gen-btn {
+            background-color: #d97706;
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+        }
+        .gen-btn:hover {
+            transform: translateY(-2px);
+            background-color: #523e2d;
+            box-shadow: 0 6px 20px rgba(56, 41, 30, 0.35);
+        }
+        .dark .gen-btn:hover {
+            background-color: #b45309;
+            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.45);
+        }
+        .gen-btn:active { transform: translateY(1px); }
+
+        /* BOTONES FLOTANTES */
+        .fab-btn {
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .fab-btn:hover { transform: scale(1.15) rotate(5deg); }
+        .fab-btn:active { transform: scale(0.92); }
+
+        .fab-radar::before, .fab-radar::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            opacity: 0.8;
+            animation: radarPulse 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            pointer-events: none;
+        }
+        .fab-radar::after { animation-delay: 1.25s; }
+
+        @keyframes radarPulse {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        .fab-tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%) translateX(10px);
+            opacity: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            background: rgba(15, 23, 42, 0.92);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .fab-btn:hover .fab-tooltip {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0px);
+        }
+
+        /* NOTIFICACIONES TOAST */
+        #toastContainer {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .toast-msg {
+            pointer-events: auto;
+            transform: translateX(-40px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast-msg.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* TEXTURAS Y PATRONES */
+        .pattern-tools {
+            background-image: radial-gradient(#ea580c 0.75px, transparent 0.75px), radial-gradient(#ea580c 0.75px, #fafaf9 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            opacity: 0.05;
+        }
+        .pattern-tech {
+            background-image: linear-gradient(to right, rgba(6, 182, 212, 0.07) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(6, 182, 212, 0.07) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .pattern-aroma {
+            background-image: radial-gradient(rgba(140, 109, 83, 0.08) 1.5px, transparent 1.5px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="theme-sahumerios antialiased selection:bg-amber-200 selection:text-amber-900 flex flex-col min-h-screen relative">
+
+    <!-- BARRA DE ANUNCIOS SUPERIOR EDITABLE -->
+    <div id="announcementBar" class="bg-gradient-to-r from-carmel-900 via-carmel-800 to-carmel-900 dark:from-zinc-900 dark:via-zinc-950 dark:to-zinc-900 text-white text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-3 shadow-inner">
+        <span class="inline-flex items-center gap-1.5"><i class="fas fa-truck-fast text-amber-400"></i> <span id="barText">🚚 Envíos a todo el país • 💳 3 Cuotas sin interés • 🌸 Aromaterapia, Tech y Herramientas</span></span>
+    </div>
+
+    <!-- HEADER / NAVEGACIÓN -->
+    <header class="sticky top-0 z-40 glass border-b border-carmel-200/60 dark:border-zinc-800 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+            
+            <!-- Logo (Triple clic abre Admin) -->
+            <a href="#" onclick="handleLogoClick(event)" class="flex items-center gap-2.5 select-none shrink-0 group">
+                <div class="w-10 h-10 rounded-2xl bg-carmel-900 dark:bg-amber-600 text-white flex items-center justify-center font-bold text-lg shadow-md group-hover:rotate-12 transition-transform" id="logoIcon">
+                    🌸
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl sm:text-2xl font-extrabold tracking-tight group-hover:scale-105 transition-transform duration-300" id="logoText">
+                        Toto <span class="font-light text-carmel-600 dark:text-amber-400 group-hover:text-amber-500 transition-colors" id="logoSub">Aromística</span>
+                    </span>
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-carmel-600 dark:text-zinc-400 -mt-1" id="logoThemeTag">Catálogo Multirubro</span>
+                </div>
+            </a>
+
+            <!-- Buscador Predictivo -->
+            <div class="flex-1 max-w-lg mx-2 md:mx-4 relative">
+                <div class="relative group">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar sahumerios, difusores, taladros, saphirus..." 
+                        class="w-full bg-white dark:bg-zinc-900 border-2 border-carmel-200 dark:border-zinc-700 rounded-full py-2.5 pl-5 pr-12 text-xs sm:text-sm font-medium focus:outline-none focus:border-carmel-800 dark:focus:border-amber-500 transition-all shadow-sm group-hover:shadow-md dark:text-white"
+                        oninput="handleSearchInput(this.value)"
+                        onfocus="handleSearchFocus()"
+                        onblur="setTimeout(() => hideAutocomplete(), 200)">
+                    <i class="fas fa-search absolute right-4 top-3 text-carmel-600 dark:text-zinc-400 text-sm group-hover:scale-110 transition-transform"></i>
+                </div>
+                <div id="autocompleteDropdown" class="hidden absolute left-0 right-0 top-12 bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-2xl shadow-2xl overflow-hidden z-50 max-h-80 overflow-y-auto divide-y divide-carmel-100 dark:divide-zinc-800"></div>
+            </div>
+
+            <!-- Navegación & Switch Modo Oscuro -->
+            <nav class="hidden lg:flex items-center gap-5 text-sm font-semibold shrink-0">
+                <a href="#catalogo" class="hover:text-carmel-600 dark:hover:text-amber-400 hover:-translate-y-0.5 transition-all">Catálogo</a>
+                <a href="#colecciones" class="text-amber-700 dark:text-amber-400 font-bold hover:scale-105 transition-all flex items-center gap-1.5"><i class="fas fa-layer-group"></i> Colecciones</a>
+                <a href="#ofertas" class="hover:text-carmel-600 dark:hover:text-amber-400 hover:-translate-y-0.5 transition-all">Ofertas 🔥</a>
+                <a href="#resenas" class="hover:text-carmel-600 dark:hover:text-amber-400 hover:-translate-y-0.5 transition-all">Opiniones</a>
+                <a href="#contacto" class="hover:text-carmel-600 dark:hover:text-amber-400 hover:-translate-y-0.5 transition-all">Contacto</a>
+            </nav>
+
+            <div class="flex items-center gap-2 shrink-0">
+                <!-- Botón Asistente IA Rápido -->
+                <button onclick="toggleAiModal()" class="hidden sm:flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xs font-bold px-3 py-2 rounded-full shadow-md transition-all active:scale-95">
+                    <i class="fas fa-sparkles text-amber-200 animate-spin-slow"></i>
+                    <span>AromaBot IA</span>
+                </button>
+
+                <!-- Botón Modo Oscuro -->
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-full bg-carmel-100 dark:bg-zinc-800 text-carmel-900 dark:text-amber-300 hover:rotate-12 hover:scale-110 transition-all" title="Cambiar Tema">
+                    <i id="themeIcon" class="fas fa-moon text-sm"></i>
+                </button>
+
+                <!-- Carrito con Animación -->
+                <button onclick="toggleCart()" class="relative bg-carmel-900 dark:bg-amber-600 text-white p-3 rounded-full hover:bg-carmel-800 dark:hover:bg-amber-700 hover:scale-110 transition-all active:scale-95 shadow-md flex items-center justify-center" id="btnHeaderCart">
+                    <i class="fas fa-shopping-bag text-sm"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-600 dark:bg-zinc-900 text-white dark:text-amber-400 text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold border border-white dark:border-zinc-800 transition-transform">0</span>
+                </button>
+
+                <!-- Botón Menú Móvil -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-carmel-900 dark:text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MENÚ MÓVIL DESPLEGABLE -->
+    <div id="mobileMenu" class="hidden fixed inset-0 z-50 bg-carmel-900/60 backdrop-blur-sm lg:hidden transition-opacity">
+        <div class="bg-carmel-50 dark:bg-zinc-900 w-72 h-full shadow-2xl p-6 flex flex-col gap-5">
+            <div class="flex justify-between items-center border-b border-carmel-200 dark:border-zinc-800 pb-4">
+                <span class="font-extrabold text-lg dark:text-white">Menú Toto</span>
+                <button onclick="toggleMobileMenu()" class="text-carmel-900 dark:text-white text-lg"><i class="fas fa-times"></i></button>
+            </div>
+            <a href="#catalogo" onclick="toggleMobileMenu()" class="font-medium text-base hover:text-carmel-600 dark:hover:text-amber-400 flex items-center gap-2"><i class="fas fa-boxes"></i> Catálogo</a>
+            <a href="#colecciones" onclick="toggleMobileMenu()" class="font-bold text-base text-amber-700 dark:text-amber-400 flex items-center gap-2"><i class="fas fa-layer-group"></i> Colecciones Temáticas</a>
+            <a href="#ofertas" onclick="toggleMobileMenu()" class="font-medium text-base hover:text-carmel-600 dark:hover:text-amber-400 flex items-center gap-2"><i class="fas fa-bolt text-amber-500"></i> Ofertas Flash 🔥</a>
+            <a href="#resenas" onclick="toggleMobileMenu()" class="font-medium text-base hover:text-carmel-600 dark:hover:text-amber-400 flex items-center gap-2"><i class="fas fa-star text-amber-500"></i> Opiniones</a>
+            <a href="#contacto" onclick="toggleMobileMenu()" class="font-medium text-base hover:text-carmel-600 dark:hover:text-amber-400 flex items-center gap-2"><i class="fas fa-phone"></i> Contacto</a>
+            
+            <div class="mt-auto pt-6 border-t border-carmel-200 dark:border-zinc-800 flex flex-col gap-2">
+                <button onclick="toggleAiModal(); toggleMobileMenu()" class="w-full bg-amber-500 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow">
+                    <i class="fas fa-sparkles"></i> Abrir Asistente IA
+                </button>
+                <button onclick="openAdminModalWithPrompt(); toggleMobileMenu()" class="w-full bg-carmel-100 dark:bg-zinc-800 text-carmel-900 dark:text-zinc-200 text-xs py-2 rounded-xl">
+                    <i class="fas fa-cog"></i> Panel de Administración
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR HERO PRINCIPAL -->
+    <div id="heroTopContainer">
+        <section id="inicio-destacado" class="py-12 bg-gradient-to-b from-carmel-100/70 to-carmel-50 dark:from-zinc-900 dark:to-zinc-950 border-b border-carmel-200/80 dark:border-zinc-800 transition-all duration-500 relative overflow-hidden">
+            <!-- Partículas decorativas ambientales de fondo -->
+            <div class="absolute -top-12 -right-12 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -left-12 w-64 h-64 bg-carmel-600/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+                <div class="flex flex-col gap-6">
+                    <span class="inline-flex items-center gap-2 bg-carmel-200/80 dark:bg-zinc-800 text-carmel-800 dark:text-amber-300 text-xs font-bold px-3.5 py-1.5 rounded-full w-max shadow-sm border border-carmel-300/50 dark:border-zinc-700 animate-float">
+                        <i class="fas fa-sparkles text-amber-500"></i> <span id="heroBadge">Aromas, Tendencias y Herramientas</span>
+                    </span>
+                    <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight" id="heroTitle">
+                        Transformá tus espacios, potenciá tu día a día.
+                    </h2>
+                    <p class="text-base font-normal leading-relaxed opacity-90" id="heroSubtitle">
+                        Descubrí nuestra selección exclusiva de sahumerios artesanales, aromatizantes Saphirus, tecnología en tendencia y herramientas prácticas.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2 max-w-md">
+                        <a href="#catalogo" class="flex-1">
+                            <button type="button" class="gen-btn">
+                                <i class="fas fa-compass"></i> Explorar Catálogo
+                            </button>
+                        </a>
+                        <a href="#colecciones" class="flex-1">
+                            <button type="button" class="gen-btn bg-white text-carmel-900 border border-carmel-300 hover:bg-carmel-100 dark:bg-zinc-800 dark:text-white dark:border-zinc-700 shadow-none">
+                                <i class="fas fa-layer-group text-amber-500"></i> Por Colección
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-carmel-200 dark:border-zinc-800 shadow-2xl flex flex-col gap-4 card-hover">
+                        <div class="bg-carmel-100 dark:bg-zinc-800 rounded-2xl h-72 flex items-center justify-center overflow-hidden relative group">
+                            <img id="heroImage" src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80" alt="Toto Aromística" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-full flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                Stock disponible en tiempo real
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow">
+
+        <!-- 1. CATÁLOGO PRINCIPAL (CON FILTROS Y ESTILOS DINÁMICOS) -->
+        <section id="catalogo" class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-carmel-200/80 dark:border-zinc-800 pb-6">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight" id="catalogTitle">Catálogo de Productos</h1>
+                    <p class="text-xs opacity-80 mt-1" id="searchFeedback">Mostrando todos los productos disponibles</p>
+                </div>
+
+                <!-- Categorías Temáticas con Ambientación Única -->
+                <div class="flex flex-wrap justify-center gap-2">
+                    <button onclick="filterCategory('todos')" class="filter-btn active bg-carmel-900 dark:bg-amber-600 text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-md active:scale-95 flex items-center gap-1.5">
+                        <i class="fas fa-th"></i> Todos
+                    </button>
+                    <button onclick="filterCategory('sahumerios')" class="filter-btn bg-white dark:bg-zinc-900 border border-carmel-300 dark:border-zinc-700 px-5 py-2.5 rounded-full text-xs font-bold hover:bg-carmel-100 dark:hover:bg-zinc-800 transition-all active:scale-95 flex items-center gap-1.5">
+                        <span>🌸</span> Sahumerios & Saphirus
+                    </button>
+                    <button onclick="filterCategory('tecnologia')" class="filter-btn bg-white dark:bg-zinc-900 border border-carmel-300 dark:border-zinc-700 px-5 py-2.5 rounded-full text-xs font-bold hover:bg-carmel-100 dark:hover:bg-zinc-800 transition-all active:scale-95 flex items-center gap-1.5">
+                        <span>⚡</span> Tecnología & Belleza
+                    </button>
+                    <button onclick="filterCategory('herramientas')" class="filter-btn bg-white dark:bg-zinc-900 border border-carmel-300 dark:border-zinc-700 px-5 py-2.5 rounded-full text-xs font-bold hover:bg-carmel-100 dark:hover:bg-zinc-800 transition-all active:scale-95 flex items-center gap-1.5">
+                        <span>🛠️</span> Taller & Herramientas
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grilla Principal -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productGrid"></div>
+        </section>
+
+        <!-- 2. NUEVA SECCIÓN DE PESTAÑAS: COLECCIONES TEMÁTICAS SUBDIVIDIDAS -->
+        <section id="colecciones" class="py-16 bg-carmel-100/50 dark:bg-zinc-900/60 border-y border-carmel-200/80 dark:border-zinc-800 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <span class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-700 dark:text-amber-400 text-xs font-extrabold px-3.5 py-1.5 rounded-full border border-amber-500/20 uppercase tracking-widest">
+                        <i class="fas fa-layer-group"></i> Nueva Pestaña Exclusiva
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3">Colecciones & Subcategorías</h2>
+                    <p class="text-xs sm:text-sm opacity-80 mt-2">
+                        Explorá cada mundo con su propia temática visual inmersiva, decoraciones y productos clasificados.
+                    </p>
+                </div>
+
+                <!-- Selector de Pestañas de Colección -->
+                <div class="flex justify-center flex-wrap gap-3 mb-10">
+                    <button onclick="switchCollectionTab('aromas')" id="colTab-aromas" class="col-tab-btn active bg-carmel-900 dark:bg-amber-600 text-white px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold shadow-lg flex items-center gap-2 transition-all active:scale-95">
+                        <span class="text-base">🌸</span> Mundo Aromas & Bienestar
+                    </button>
+                    <button onclick="switchCollectionTab('tech')" id="colTab-tech" class="col-tab-btn bg-white dark:bg-zinc-800 border border-carmel-200 dark:border-zinc-700 text-carmel-900 dark:text-white px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold shadow-sm hover:bg-carmel-50 flex items-center gap-2 transition-all active:scale-95">
+                        <span class="text-base">⚡</span> Cyber Tech & Cuidado LED
+                    </button>
+                    <button onclick="switchCollectionTab('garage')" id="colTab-garage" class="col-tab-btn bg-white dark:bg-zinc-800 border border-carmel-200 dark:border-zinc-700 text-carmel-900 dark:text-white px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold shadow-sm hover:bg-carmel-50 flex items-center gap-2 transition-all active:scale-95">
+                        <span class="text-base">🛠️</span> Garaje, Autos & Taller
+                    </button>
+                </div>
+
+                <!-- CONTENIDO 1: MUNDO AROMAS -->
+                <div id="colContent-aromas" class="col-content flex flex-col gap-8">
+                    <!-- Banner Inmersivo Aromas -->
+                    <div class="bg-gradient-to-r from-amber-900 via-carmel-800 to-amber-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 border border-amber-800/40">
+                        <div class="relative z-10 max-w-xl">
+                            <span class="text-amber-300 text-xs font-extrabold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-feather"></i> Armonía & Fragancias Puras</span>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold mt-1">Sahumerios Artesanales & Saphirus</h3>
+                            <p class="text-xs sm:text-sm text-amber-100/90 mt-2">Varillas aromáticas maceradas con aceites esenciales, conos de defumación y aromatizantes textiles que transforman la energía de tu hogar.</p>
+                        </div>
+                        <div class="relative z-10 flex gap-2">
+                            <button onclick="filterSubcategory('sahumerios', 'todos')" class="subcat-btn active bg-white text-carmel-900 font-bold px-4 py-2 rounded-xl text-xs shadow-md">Todos los Aromas</button>
+                            <button onclick="filterSubcategory('sahumerios', 'artesanales')" class="subcat-btn bg-white/20 text-white hover:bg-white/30 font-bold px-4 py-2 rounded-xl text-xs backdrop-blur-md">Artesanales</button>
+                            <button onclick="filterSubcategory('sahumerios', 'saphirus')" class="subcat-btn bg-white/20 text-white hover:bg-white/30 font-bold px-4 py-2 rounded-xl text-xs backdrop-blur-md">Saphirus</button>
+                        </div>
+                    </div>
+                    <!-- Grilla Colección Aromas -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="colGrid-aromas"></div>
+                </div>
+
+                <!-- CONTENIDO 2: MUNDO TECNOLOGÍA & BELLEZA -->
+                <div id="colContent-tech" class="col-content hidden flex flex-col gap-8">
+                    <!-- Banner Inmersivo Tech -->
+                    <div class="bg-gradient-to-r from-cyan-950 via-slate-900 to-sky-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 border border-cyan-800/40">
+                        <div class="relative z-10 max-w-xl">
+                            <span class="text-cyan-400 text-xs font-extrabold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-microchip"></i> Smart Home & Cuidado Personal</span>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold mt-1">Tecnología LED, Difusores & Belleza</h3>
+                            <p class="text-xs sm:text-sm text-cyan-100/90 mt-2">Humidificadores ultrasónicos silenciosos, espejos touch recargables y dispositivos modernos para potenciar tu confort y estética diaria.</p>
+                        </div>
+                        <div class="relative z-10 flex gap-2">
+                            <button onclick="filterSubcategory('tecnologia', 'todos')" class="subcat-btn-tech active bg-cyan-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs shadow-md">Todos Tech</button>
+                            <button onclick="filterSubcategory('tecnologia', 'difusores')" class="subcat-btn-tech bg-white/10 text-cyan-300 hover:bg-white/20 font-bold px-4 py-2 rounded-xl text-xs backdrop-blur-md">Difusores USB</button>
+                            <button onclick="filterSubcategory('tecnologia', 'belleza')" class="subcat-btn-tech bg-white/10 text-cyan-300 hover:bg-white/20 font-bold px-4 py-2 rounded-xl text-xs backdrop-blur-md">Belleza LED</button>
+                        </div>
+                    </div>
+                    <!-- Grilla Colección Tech -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="colGrid-tech"></div>
+                </div>
+
+                <!-- CONTENIDO 3: MUNDO TALLER & HERRAMIENTAS -->
+                <div id="colContent-garage" class="col-content hidden flex flex-col gap-8">
+                    <!-- Banner Inmersivo Garage con Estilo Autos y Herramientas -->
+                    <div class="bg-gradient-to-r from-zinc-950 via-stone-900 to-amber-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 border border-amber-600/40">
+                        <div class="relative z-10 max-w-xl">
+                            <span class="text-amber-500 text-xs font-extrabold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-car-side"></i> Taller, Reparación & Automotor</span>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold mt-1">Herramientas & Bricolaje Pro</h3>
+                            <p class="text-xs sm:text-sm text-amber-100/90 mt-2">Sets rotativos inalámbricos, accesorios automotrices, kits de precisión y máquinas resistentes pensadas para arreglos del auto y el hogar.</p>
+                        </div>
+                        <div class="relative z-10 flex gap-2">
+                            <button onclick="filterSubcategory('herramientas', 'todos')" class="subcat-btn-garage active bg-amber-500 text-zinc-950 font-bold px-4 py-2 rounded-xl text-xs shadow-md">Todas Herramientas</button>
+                            <button onclick="filterSubcategory('herramientas', 'inalambricas')" class="subcat-btn-garage bg-white/10 text-amber-300 hover:bg-white/20 font-bold px-4 py-2 rounded-xl text-xs backdrop-blur-md">Inalámbricas</button>
+                            <button onclick="filterSubcategory('herramientas', 'automotor')" class="subcat-btn-garage bg-white/10 text-amber-300 hover:bg-white/20 font-bold px-4 py-2 rounded-xl text-xs backdrop-blur-md">Taller & Auto</button>
+                        </div>
+                    </div>
+                    <!-- Grilla Colección Garage -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="colGrid-garage"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. OFERTAS FLASH -->
+        <section id="ofertas" class="py-14 bg-gradient-to-r from-carmel-900 via-carmel-800 to-carmel-900 dark:from-zinc-900 dark:via-zinc-950 dark:to-zinc-900 text-white my-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6 border-b border-carmel-700/60 dark:border-zinc-800 pb-6">
+                    <div>
+                        <span class="bg-amber-500/20 text-amber-300 text-xs font-bold px-3.5 py-1.5 rounded-full border border-amber-400/30 inline-flex items-center gap-1.5 animate-pulse-glow">
+                            <i class="fas fa-bolt text-amber-400"></i> OFERTAS FLASH
+                        </span>
+                        <h2 class="text-3xl font-bold mt-2">Descuentos Especiales</h2>
+                        <p class="text-carmel-200 dark:text-zinc-400 text-xs mt-1">Precios por tiempo limitado en artículos seleccionados</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="ofertasContainer"></div>
+            </div>
+        </section>
+
+        <!-- 4. RESEÑAS -->
+        <section id="resenas" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs uppercase tracking-widest text-carmel-600 dark:text-amber-500 font-bold">Experiencias de Clientes</span>
+                <h2 class="text-3xl font-extrabold mt-1">Opiniones y Valoraciones</h2>
+                <p class="text-xs opacity-80 mt-1">Lo que dicen quienes ya eligieron Toto Aromística</p>
+            </div>
+
+            <div class="flex justify-center gap-2 mb-8">
+                <button onclick="filterReviews('all')" class="review-btn active bg-carmel-900 dark:bg-amber-600 text-white px-4 py-1.5 rounded-full text-xs font-bold transition-all">Todas</button>
+                <button onclick="filterReviews(5)" class="review-btn bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-700 px-4 py-1.5 rounded-full text-xs font-bold hover:bg-carmel-100 transition-all">⭐⭐⭐⭐⭐ 5 Estrellas</button>
+                <button onclick="filterReviews(4)" class="review-btn bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-700 px-4 py-1.5 rounded-full text-xs font-bold hover:bg-carmel-100 transition-all">⭐⭐⭐⭐ 4 Estrellas</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="reviewsContainer"></div>
+        </section>
+
+        <!-- CONTENEDOR HERO BOTTOM -->
+        <div id="heroBottomContainer"></div>
+
+        <!-- 5. CONTACTO -->
+        <section id="contacto" class="py-14 bg-carmel-100/40 dark:bg-zinc-900/60 border-t border-carmel-200 dark:border-zinc-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <span class="text-xs uppercase tracking-widest font-bold opacity-80">Atención personalizada</span>
+                    <h2 class="text-2xl font-bold mt-1">Contacto Directo</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <a id="btnContactWa" href="#" target="_blank" class="bg-white dark:bg-zinc-900 p-5 rounded-2xl border border-carmel-200 dark:border-zinc-800 shadow-sm flex flex-col items-center text-center hover:border-emerald-500 transition-all card-hover group">
+                        <i class="fab fa-whatsapp text-3xl text-emerald-600 mb-2 group-hover:scale-125 transition-transform"></i>
+                        <span class="font-bold text-xs">WhatsApp</span>
+                        <span id="dispPhone" class="text-xs opacity-70 mt-1">...</span>
+                    </a>
+                    <a id="btnContactMail" href="#" class="bg-white dark:bg-zinc-900 p-5 rounded-2xl border border-carmel-200 dark:border-zinc-800 shadow-sm flex flex-col items-center text-center hover:border-carmel-600 transition-all card-hover group">
+                        <i class="far fa-envelope text-3xl text-carmel-800 dark:text-amber-400 mb-2 group-hover:scale-125 transition-transform"></i>
+                        <span class="font-bold text-xs">Email Directo</span>
+                        <span id="dispEmail" class="text-xs opacity-70 mt-1">...</span>
+                    </a>
+                    <div class="bg-white dark:bg-zinc-900 p-5 rounded-2xl border border-carmel-200 dark:border-zinc-800 shadow-sm flex flex-col items-center text-center card-hover group">
+                        <i class="fas fa-map-marker-alt text-3xl text-amber-700 dark:text-amber-500 mb-2 group-hover:scale-125 transition-transform"></i>
+                        <span class="font-bold text-xs">Ubicación y Envíos</span>
+                        <span id="dispLocation" class="text-xs opacity-70 mt-1">...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- BOTONERA FLOTANTE DE REDES + ASISTENTE IA -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3.5">
+        <button id="backToTopBtn" onclick="scrollToTop()" class="hidden bg-carmel-900 dark:bg-amber-600 text-white w-12 h-12 rounded-full shadow-2xl items-center justify-center transition-all hover:scale-110 active:scale-95">
+            <i class="fas fa-arrow-up text-sm"></i>
+        </button>
+
+        <!-- Botón Flotante Asistente IA -->
+        <button onclick="toggleAiModal()" class="fab-btn bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl border-2 border-white/30 animate-pulse-glow" title="AromaBot Asistente">
+            <i class="fas fa-robot text-xl"></i>
+            <span class="fab-tooltip">✨ ¡Preguntale a AromaBot IA!</span>
+        </button>
+
+        <!-- Instagram -->
+        <a id="btnInstagramFab" href="https://instagram.com/toto.aromistica" target="_blank" class="fab-btn bg-gradient-to-tr from-amber-600 via-rose-500 to-purple-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl border-2 border-white/20">
+            <i class="fab fa-instagram"></i>
+            <span class="fab-tooltip">¡Seguinos en Instagram! 📸</span>
+        </a>
+
+        <!-- WhatsApp con radar -->
+        <a id="btnWhatsAppFab" href="#" target="_blank" class="fab-btn fab-radar text-emerald-500 bg-emerald-600 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-3xl border-2 border-white/30">
+            <i class="fab fa-whatsapp"></i>
+            <span class="fab-tooltip">¡Consultános por WhatsApp! 💬</span>
+        </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-carmel-900 dark:bg-zinc-900 text-carmel-200 py-8 border-t border-carmel-800 dark:border-zinc-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-carmel-400 flex flex-col items-center gap-1.5">
+            <span class="font-bold text-sm text-white">Toto Aromística</span>
+            <span>Sahumerios • Aromatizantes Saphirus • Belleza & Tecnología • Herramientas</span>
+            <span class="opacity-60">&copy; 2026 Todos los derechos reservados. Desarrollado con tecnología inteligente.</span>
+        </div>
+    </footer>
+
+    <!-- MODAL DETALLE DE PRODUCTO -->
+    <div id="productDetailModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-carmel-900/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white dark:bg-zinc-900 dark:text-white w-full max-w-3xl rounded-3xl p-6 shadow-2xl border border-carmel-200 dark:border-zinc-800 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeProductDetailModal()" class="absolute top-5 right-5 text-carmel-600 dark:text-zinc-400 hover:text-carmel-900 dark:hover:text-white text-xl p-2 z-10 hover:rotate-90 transition-transform">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div class="flex flex-col gap-3">
+                    <div id="mediaViewerContainer" class="relative h-72 bg-carmel-100 dark:bg-zinc-800 rounded-2xl overflow-hidden border border-carmel-200 dark:border-zinc-800 flex items-center justify-center select-none">
+                        <img id="detailImage" src="" class="w-full h-full object-cover">
+                        <!-- Canvas 3D Interactivo -->
+                        <div id="threeDCanvas" class="hidden w-full h-full flex-col items-center justify-center bg-zinc-950 text-white p-4 text-center cursor-grab active:cursor-grabbing relative overflow-hidden" onmousedown="start3DRotate(event)" ontouchstart="start3DRotate(event)">
+                            <div class="w-32 h-32 rounded-full border-4 border-dashed border-amber-500 flex items-center justify-center mb-3 shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-transform duration-100" id="rotateObject3D">
+                                <i class="fas fa-cube text-4xl text-amber-400"></i>
+                            </div>
+                            <span class="text-xs font-bold text-amber-300">Vista 3D / 360° Interactiva</span>
+                            <span class="text-[10px] text-zinc-400 mt-1">Arrastrá con el mouse o dedo para rotar</span>
+                        </div>
+                    </div>
+                    <button id="btnToggle3D" onclick="toggle3DView()" class="hidden w-full bg-carmel-100 dark:bg-zinc-800 text-carmel-900 dark:text-amber-300 py-2.5 rounded-xl text-xs font-bold hover:bg-carmel-200 transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-cube text-sm"></i> <span id="btnToggle3DText">Alternar Vista 3D / 360°</span>
+                    </button>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <div>
+                        <span id="detailBadge" class="inline-block bg-carmel-900 dark:bg-amber-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider mb-2"></span>
+                        <h2 id="detailTitle" class="text-2xl font-extrabold leading-tight"></h2>
+                        <div class="flex items-center gap-3 mt-2">
+                            <span id="detailPrice" class="text-2xl font-extrabold text-amber-600 dark:text-amber-400"></span>
+                            <span id="detailOldPrice" class="text-sm opacity-60 line-through"></span>
+                        </div>
+                    </div>
+
+                    <p id="detailDesc" class="text-xs leading-relaxed bg-carmel-50 dark:bg-zinc-950 p-3.5 rounded-2xl border border-carmel-200 dark:border-zinc-800 opacity-90"></p>
+
+                    <div id="variantSelectorGroup" class="flex flex-col gap-1.5 hidden">
+                        <label class="text-xs font-bold">Aroma / Variante:</label>
+                        <select id="detailVariantSelect" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none dark:text-white"></select>
+                    </div>
+
+                    <div id="sizeSelectorGroup" class="flex flex-col gap-1.5 hidden">
+                        <label class="text-xs font-bold">Tamaño / Presentación:</label>
+                        <select id="detailSizeSelect" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none dark:text-white"></select>
+                    </div>
+
+                    <div class="mt-2">
+                        <button type="button" class="gen-btn" onclick="addCurrentDetailToCartWithAnim(this)">
+                            <i class="fas fa-cart-plus"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CARRITO -->
+    <div id="cartModal" class="hidden fixed inset-0 z-50 overflow-hidden">
+        <div class="absolute inset-0 bg-carmel-900/50 backdrop-blur-sm" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white dark:bg-zinc-900 shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-carmel-200 dark:border-zinc-800 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-shopping-bag text-carmel-900 dark:text-amber-400"></i>
+                        <h3 class="font-bold text-lg">Tu Carrito</h3>
+                    </div>
+                    <button onclick="toggleCart()" class="text-lg opacity-70"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-4" id="cartItemsContainer"></div>
+                <div class="p-6 border-t border-carmel-200 dark:border-zinc-800 flex flex-col gap-4 bg-carmel-50 dark:bg-zinc-950">
+                    <div class="flex justify-between items-center font-bold text-lg">
+                        <span>Total:</span>
+                        <span id="cartTotalPrice">$0</span>
+                    </div>
+                    <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 text-white font-semibold py-3.5 rounded-xl hover:bg-emerald-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 active:scale-95">
+                        <i class="fab fa-whatsapp text-lg"></i> Finalizar Compra por WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ASISTENTE VIRTUAL IA (AROMABOT) -->
+    <div id="aiChatModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-carmel-900/70 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white dark:bg-zinc-900 dark:text-white w-full max-w-lg rounded-3xl shadow-2xl border border-carmel-200 dark:border-zinc-800 flex flex-col overflow-hidden max-h-[85vh]">
+            <!-- Header Bot -->
+            <div class="bg-gradient-to-r from-amber-600 to-carmel-800 text-white p-4 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-xl">
+                        ✨
+                    </div>
+                    <div>
+                        <h4 class="font-extrabold text-sm flex items-center gap-1.5">AromaBot • Asistente Inteligente <span class="text-[9px] bg-white/20 px-2 py-0.5 rounded-full uppercase font-bold">Gemini AI</span></h4>
+                        <p class="text-[11px] text-amber-100 opacity-90">Te recomiendo el producto ideal según lo que sientas o busques</p>
+                    </div>
+                </div>
+                <button onclick="toggleAiModal()" class="text-white hover:text-amber-200 text-lg p-1"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Chips de sugerencias rápidas -->
+            <div class="bg-carmel-50 dark:bg-zinc-950 px-4 py-2.5 border-b border-carmel-200 dark:border-zinc-800 flex items-center gap-2 overflow-x-auto text-[11px] shrink-0">
+                <span class="opacity-60 shrink-0 font-bold">Probar:</span>
+                <button onclick="sendQuickAiQuery('Quiero algo relajante para meditar y dormir mejor')" class="bg-white dark:bg-zinc-800 border border-carmel-200 dark:border-zinc-700 px-3 py-1 rounded-full whitespace-nowrap hover:bg-amber-50">🌸 Relajarme</button>
+                <button onclick="sendQuickAiQuery('¿Qué aromatizante Saphirus me recomendás para el auto?')" class="bg-white dark:bg-zinc-800 border border-carmel-200 dark:border-zinc-700 px-3 py-1 rounded-full whitespace-nowrap hover:bg-amber-50">🚗 Aroma para auto</button>
+                <button onclick="sendQuickAiQuery('Necesito un regalo original por menos de $15.000')" class="bg-white dark:bg-zinc-800 border border-carmel-200 dark:border-zinc-700 px-3 py-1 rounded-full whitespace-nowrap hover:bg-amber-50">🎁 Regalo lindo</button>
+                <button onclick="sendQuickAiQuery('Busco una herramienta práctica para manualidades y arreglos')" class="bg-white dark:bg-zinc-800 border border-carmel-200 dark:border-zinc-700 px-3 py-1 rounded-full whitespace-nowrap hover:bg-amber-50">🛠️ Herramientas</button>
+            </div>
+
+            <!-- Mensajes Chat -->
+            <div id="aiChatMessages" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 text-xs min-h-[250px]">
+                <div class="flex gap-2 items-start">
+                    <div class="w-7 h-7 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0 text-xs">✨</div>
+                    <div class="bg-carmel-100/70 dark:bg-zinc-800 p-3 rounded-2xl max-w-[85%] leading-relaxed">
+                        ¡Hola! Soy tu asistente en <strong>Toto Aromística</strong>. Contame qué estás buscando, qué sensación querés en tu ambiente o qué tipo de producto necesitás y te ayudo a elegir con gusto.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="p-3 border-t border-carmel-200 dark:border-zinc-800 flex gap-2 bg-white dark:bg-zinc-900 shrink-0">
+                <input type="text" id="aiUserInput" placeholder="Ej: Busco un aroma dulce para la sala o un difusor..." 
+                    class="flex-1 bg-carmel-50 dark:bg-zinc-800 border border-carmel-200 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs focus:outline-none"
+                    onkeydown="if(event.key==='Enter') sendAiMessage()">
+                <button onclick="sendAiMessage()" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
+                    <span>Enviar</span> <i class="fas fa-paper-plane text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL ADMIN SÚPER EXPANDIDO (CON JSON, IA Y CATEGORÍAS) -->
+    <div id="adminModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-carmel-900/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-6">
+        <div class="bg-white dark:bg-zinc-900 dark:text-white w-[96vw] max-w-7xl h-[92vh] rounded-3xl p-6 sm:p-8 shadow-2xl border border-carmel-200 dark:border-zinc-800 flex flex-col overflow-hidden">
+            
+            <div class="flex justify-between items-center border-b border-carmel-200 dark:border-zinc-800 pb-4 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-carmel-900 dark:bg-amber-600 text-white flex items-center justify-center font-bold text-lg">⚙️</div>
+                    <div>
+                        <h3 class="text-2xl font-extrabold">Panel de Control General</h3>
+                        <p class="text-xs opacity-70">Gestión completa de catálogo, JSON en vivo, IA Gemini y configuraciones</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminModal()" class="bg-carmel-100 dark:bg-zinc-800 hover:bg-carmel-200 text-carmel-900 dark:text-white p-2.5 rounded-2xl font-bold text-sm">
+                    <i class="fas fa-times mr-1"></i> Cerrar Panel
+                </button>
+            </div>
+
+            <!-- Tabs Admin -->
+            <div class="flex border-b border-carmel-200 dark:border-zinc-800 my-4 gap-2 shrink-0 overflow-x-auto">
+                <button onclick="switchAdminTab('products')" id="tabBtn-products" class="tab-btn active bg-carmel-900 dark:bg-amber-600 text-white px-4 py-2 rounded-t-2xl text-xs font-bold whitespace-nowrap">📦 Productos</button>
+                <button onclick="switchAdminTab('json')" id="tabBtn-json" class="tab-btn bg-carmel-100 dark:bg-zinc-800 text-carmel-800 dark:text-zinc-300 px-4 py-2 rounded-t-2xl text-xs font-bold whitespace-nowrap">💾 Sincronización JSON</button>
+                <button onclick="switchAdminTab('ai')" id="tabBtn-ai" class="tab-btn bg-carmel-100 dark:bg-zinc-800 text-carmel-800 dark:text-zinc-300 px-4 py-2 rounded-t-2xl text-xs font-bold whitespace-nowrap">🤖 IA Gemini</button>
+                <button onclick="switchAdminTab('settings')" id="tabBtn-settings" class="tab-btn bg-carmel-100 dark:bg-zinc-800 text-carmel-800 dark:text-zinc-300 px-4 py-2 rounded-t-2xl text-xs font-bold whitespace-nowrap">⚙️ Contacto y Redes</button>
+                <button onclick="switchAdminTab('reviews')" id="tabBtn-reviews" class="tab-btn bg-carmel-100 dark:bg-zinc-800 text-carmel-800 dark:text-zinc-300 px-4 py-2 rounded-t-2xl text-xs font-bold whitespace-nowrap">💬 Reseñas</button>
+                <button onclick="switchAdminTab('hero')" id="tabBtn-hero" class="tab-btn bg-carmel-100 dark:bg-zinc-800 text-carmel-800 dark:text-zinc-300 px-4 py-2 rounded-t-2xl text-xs font-bold whitespace-nowrap">🖼️ Textos Inicio</button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto pr-2">
+                <!-- TAB 1: PRODUCTOS -->
+                <div id="tab-products" class="tab-content">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-6 bg-carmel-50 dark:bg-zinc-950 p-6 rounded-2xl border border-carmel-200 dark:border-zinc-800">
+                            <form id="adminProductForm" onsubmit="saveProductFromAdmin(event)" class="flex flex-col gap-3">
+                                <h4 class="font-extrabold text-sm border-b border-carmel-200 dark:border-zinc-800 pb-2 flex justify-between items-center" id="formTitle">
+                                    <span>📦 Cargar Nuevo Producto Detallado</span>
+                                    <button type="button" onclick="resetAdminForm()" class="text-[11px] opacity-70 underline font-normal">Limpiar</button>
+                                </h4>
+                                <input type="hidden" id="adminProductId">
+                                
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-xs font-bold">Nombre del Producto</label>
+                                    <input type="text" id="adminName" required placeholder="Ej: Difusor de Aromas Nórdico" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none">
+                                </div>
+
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex justify-between items-center">
+                                        <label class="text-xs font-bold">Descripción Corta / Detallada</label>
+                                        <button type="button" onclick="generateAiDescriptionForAdmin()" class="text-[10px] font-bold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1">
+                                            <i class="fas fa-sparkles"></i> Redactar con IA
+                                        </button>
+                                    </div>
+                                    <textarea id="adminDesc" rows="2" placeholder="Ej: Fragancia duradera de lavanda silvestre ideal para ambientes relajantes..." class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none"></textarea>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="flex flex-col gap-1">
+                                        <label class="text-xs font-bold">Categoría Principal</label>
+                                        <select id="adminCategory" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none">
+                                            <option value="sahumerios">🌸 Sahumerios y Saphirus</option>
+                                            <option value="tecnologia">⚡ Tecnología y Belleza</option>
+                                            <option value="herramientas">🛠️ Herramientas y Taller</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <label class="text-xs font-bold">Subcategoría Específica</label>
+                                        <input type="text" id="adminSubcategory" placeholder="Ej: Artesanales, USB, Automotor" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="flex flex-col gap-1">
+                                        <label class="text-xs font-bold">Precio ($)</label>
+                                        <input type="number" id="adminPrice" required class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none">
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <label class="text-xs font-bold">Precio Anterior ($ tachado)</label>
+                                        <input type="number" id="adminOldPrice" placeholder="Opcional" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="flex flex-col gap-1">
+                                        <label class="text-xs font-bold">Variantes / Aromas (por coma)</label>
+                                        <input type="text" id="adminVariants" placeholder="Ej: Lavanda, Sándalo, Rosas" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none">
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <label class="text-xs font-bold">Tamaños / Formatos (por coma)</label>
+                                        <input type="text" id="adminSizes" placeholder="Ej: 250ml, 500ml, Pack x10" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="flex flex-col gap-1">
+                                        <label class="text-xs font-bold">Etiqueta Badge</label>
+                                        <input type="text" id="adminBadge" placeholder="Ej: Más Vendido, Pro" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none">
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <label class="text-xs font-bold">Imagen (URL)</label>
+                                        <input type="text" id="adminImageUrl" placeholder="https://..." class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none">
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-xs font-bold">O subir imagen desde tu dispositivo</label>
+                                    <input type="file" id="adminImageFile" accept="image/*" onchange="handleImageUpload(event)" class="text-xs bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl p-1.5">
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-2 my-1">
+                                    <div class="flex items-center gap-2 bg-white dark:bg-zinc-900 p-2 rounded-xl border border-carmel-200 dark:border-zinc-800">
+                                        <input type="checkbox" id="adminIsOffer" class="rounded text-carmel-900 w-4 h-4">
+                                        <label for="adminIsOffer" class="text-[11px] font-bold cursor-pointer">En Ofertas Flash 🔥</label>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-white dark:bg-zinc-900 p-2 rounded-xl border border-carmel-200 dark:border-zinc-800">
+                                        <input type="checkbox" id="adminHas3D" class="rounded text-carmel-900 w-4 h-4">
+                                        <label for="adminHas3D" class="text-[11px] font-bold cursor-pointer">Activar Vista 3D 🧊</label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="bg-carmel-900 dark:bg-amber-600 text-white font-bold py-3 rounded-xl text-xs hover:bg-carmel-800 transition-all shadow-md mt-1">
+                                    Guardar Producto
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="lg:col-span-6 flex flex-col gap-3">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-extrabold text-sm">Inventario (<span id="prodCount">0</span>)</h4>
+                                <input type="text" id="adminSearchFilter" placeholder="Filtrar productos..." oninput="filterAdminProducts(this.value)" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-1 text-xs">
+                            </div>
+                            <div class="flex flex-col gap-2 max-h-[60vh] overflow-y-auto pr-1" id="adminProductsList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: SINCRONIZACIÓN Y JSON DE PRODUCTOS -->
+                <div id="tab-json" class="tab-content hidden">
+                    <div class="bg-carmel-50 dark:bg-zinc-950 p-6 rounded-2xl border border-carmel-200 dark:border-zinc-800 max-w-3xl mx-auto flex flex-col gap-4">
+                        <div class="border-b border-carmel-200 dark:border-zinc-800 pb-3">
+                            <h4 class="font-extrabold text-base">💾 Sincronización Real de Datos (JSON)</h4>
+                            <p class="text-xs opacity-75 mt-1">
+                                Podés exportar todos tus productos y configuraciones para guardarlos como copia de seguridad o pegarlos en tu archivo o servidor.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <button onclick="exportJsonFile()" class="bg-carmel-900 dark:bg-amber-600 text-white font-bold py-3 px-4 rounded-xl text-xs hover:bg-carmel-800 transition-all flex items-center justify-center gap-2">
+                                <i class="fas fa-file-export"></i> Descargar JSON
+                            </button>
+                            <button onclick="copyJsonToClipboard()" class="bg-white dark:bg-zinc-900 border border-carmel-300 dark:border-zinc-700 font-bold py-3 px-4 rounded-xl text-xs hover:bg-carmel-100 dark:hover:bg-zinc-800 transition-all flex items-center justify-center gap-2">
+                                <i class="fas fa-copy"></i> Copiar al Portapapeles
+                            </button>
+                            <button onclick="resetToDefaultData()" class="bg-red-50 text-red-600 border border-red-200 font-bold py-3 px-4 rounded-xl text-xs hover:bg-red-100 transition-all flex items-center justify-center gap-2">
+                                <i class="fas fa-undo"></i> Restaurar Originales
+                            </button>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5 mt-2">
+                            <label class="text-xs font-bold">Importar / Pegar Catálogo JSON:</label>
+                            <textarea id="importJsonArea" rows="8" placeholder="Pegá aquí el JSON completo de productos y presioná 'Cargar Catálogo'..." class="font-mono text-xs bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl p-3 focus:outline-none"></textarea>
+                            <button onclick="importJsonData()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow">
+                                <i class="fas fa-file-import"></i> Cargar Catálogo desde JSON
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: CONFIGURACIÓN IA GEMINI -->
+                <div id="tab-ai" class="tab-content hidden">
+                    <div class="bg-carmel-50 dark:bg-zinc-950 p-6 rounded-2xl border border-carmel-200 dark:border-zinc-800 max-w-2xl mx-auto flex flex-col gap-4">
+                        <h4 class="font-extrabold text-sm border-b border-carmel-200 dark:border-zinc-800 pb-2 flex items-center gap-2">
+                            <span>🤖 Motor de Inteligencia Artificial (Gemini)</span>
+                        </h4>
+                        
+                        <p class="text-xs opacity-80 leading-relaxed">
+                            AromaBot IA ya cuenta con un sistema interactivo de recomendación integrado. Si querés que utilice los modelos avanzados de <strong>Google Gemini Flash</strong> para responder cualquier consulta profunda, podés colocar tu API Key aquí.
+                        </p>
+
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Gemini API Key (Google AI Studio)</label>
+                            <input type="password" id="cfgGeminiKey" placeholder="AIzaSy..." class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                            <span class="text-[10px] opacity-60">Tu clave se guarda únicamente en tu navegador de forma segura.</span>
+                        </div>
+
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Nombre del Asistente Virtual</label>
+                            <input type="text" id="cfgBotName" placeholder="AromaBot" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                        </div>
+
+                        <button onclick="saveAiSettings()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl text-xs transition-all shadow">
+                            Guardar Configuración de IA
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 4: AJUSTES GENERALES -->
+                <div id="tab-settings" class="tab-content hidden">
+                    <form onsubmit="saveGeneralSettings(event)" class="bg-carmel-50 dark:bg-zinc-950 p-6 rounded-2xl border border-carmel-200 dark:border-zinc-800 max-w-2xl mx-auto flex flex-col gap-4">
+                        <h4 class="font-extrabold text-sm border-b border-carmel-200 dark:border-zinc-800 pb-2">⚙️ Contacto, Instagram y Seguridad</h4>
+                        
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Texto de la Barra Superior de Avisos</label>
+                            <input type="text" id="cfgAnnouncement" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Número de WhatsApp (sin +)</label>
+                            <input type="text" id="cfgPhone" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Usuario de Instagram (ej: toto.aromistica)</label>
+                            <input type="text" id="cfgInstagram" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Email de Contacto</label>
+                            <input type="email" id="cfgEmail" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Ubicación / Zona de Envíos</label>
+                            <input type="text" id="cfgLocation" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Cambiar Contraseña del Panel</label>
+                            <input type="password" id="cfgPass" placeholder="Dejar en blanco para conservar" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                        </div>
+
+                        <button type="submit" class="bg-carmel-900 dark:bg-amber-600 text-white font-bold py-3 rounded-xl text-xs hover:bg-carmel-800 transition-all">
+                            Guardar Ajustes al Instante
+                        </button>
+                    </form>
+                </div>
+
+                <!-- TAB 5: RESEÑAS -->
+                <div id="tab-reviews" class="tab-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-5 bg-carmel-50 dark:bg-zinc-950 p-6 rounded-2xl border border-carmel-200 dark:border-zinc-800">
+                            <form onsubmit="saveReviewFromAdmin(event)" class="flex flex-col gap-4">
+                                <h4 class="font-extrabold text-sm border-b border-carmel-200 dark:border-zinc-800 pb-2">💬 Agregar Reseña</h4>
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-xs font-bold">Nombre del Cliente</label>
+                                    <input type="text" id="revName" required class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-xs font-bold">Comentario</label>
+                                    <textarea id="revComment" required rows="3" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs"></textarea>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-xs font-bold">Estrellas</label>
+                                    <select id="revStars" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                                        <option value="5">⭐⭐⭐⭐⭐ 5 Estrellas</option>
+                                        <option value="4">⭐⭐⭐⭐ 4 Estrellas</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="bg-carmel-900 dark:bg-amber-600 text-white font-bold py-3 rounded-xl text-xs">Agregar Opinión</button>
+                            </form>
+                        </div>
+                        <div class="lg:col-span-7 flex flex-col gap-3">
+                            <h4 class="font-extrabold text-sm">Reseñas Publicadas</h4>
+                            <div class="flex flex-col gap-2 max-h-[60vh] overflow-y-auto" id="adminReviewsList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 6: TEXTOS INICIO -->
+                <div id="tab-hero" class="tab-content hidden">
+                    <form onsubmit="saveHeroSettings(event)" class="bg-carmel-50 dark:bg-zinc-950 p-6 rounded-2xl border border-carmel-200 dark:border-zinc-800 max-w-2xl mx-auto flex flex-col gap-4">
+                        <h4 class="font-extrabold text-sm border-b border-carmel-200 dark:border-zinc-800 pb-2">🖼️ Editar la Sección del Inicio</h4>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Etiqueta Superior</label>
+                            <input type="text" id="cfgHeroBadge" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Título Principal</label>
+                            <input type="text" id="cfgHeroTitle" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold">Descripción</label>
+                            <textarea id="cfgHeroSub" rows="3" class="bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs"></textarea>
+                        </div>
+                        <button type="submit" class="bg-carmel-900 dark:bg-amber-600 text-white font-bold py-3 rounded-xl text-xs">Actualizar Textos</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE NOTIFICACIONES TOAST MODERNAS -->
+    <div id="toastContainer"></div>
+
+    <!-- SCRIPT DE LÓGICA, DATOS Y ASISTENTE IA -->
+    <script>
+        // CONFIGURACIÓN GENERAL
+        let settings = {
+            phone: "541151363290",
+            instagram: "toto.aromistica",
+            email: "sahumerioshema@gmail.com",
+            location: "Claypole, GBA y Envíos Nacionales",
+            pass: "100721",
+            announcement: "🚚 Envíos a todo el país • 💳 3 Cuotas sin interés • 🌸 Aromaterapia, Tech y Herramientas",
+            heroBadge: "Aromas, Tendencias y Herramientas",
+            heroTitle: "Transformá tus espacios, potenciá tu día a día.",
+            heroSub: "Descubrí nuestra selección exclusiva de sahumerios artesanales, aromatizantes Saphirus, tecnología en tendencia y herramientas prácticas.",
+            geminiApiKey: "",
+            botName: "AromaBot"
+        };
+
+        // PRODUCTOS COMPLETOS CON SUBCATEGORÍAS
+        let defaultProducts = [
+            { id: 1, name: "Kit Sahumerios Artesanales Premium", description: "Selección de varillas aromáticas artesanales de alta calidad con esencias naturales puras para meditación, limpieza energética y armonización de ambientes.", category: "sahumerios", subcategory: "artesanales", price: 4800, oldPrice: 6000, image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80", badge: "Más Vendido", isOffer: true, variants: "Sándalo, Lavanda, Rosas, Vainilla", sizes: "Caja x10, Caja x20", has3D: true },
+            { id: 2, name: "Aromatizante Saphirus Textil y Ambiental", description: "Fragancia textil concentrada original Saphirus para cortinas, ropa de cama y autos. Aroma envolvente y de máxima persistencia.", category: "sahumerios", subcategory: "saphirus", price: 6500, oldPrice: 8000, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80", badge: "Saphirus", isOffer: true, variants: "Bebé, Marina, Coco Vainilla, Papaya", sizes: "250cc, 500cc", has3D: false },
+            { id: 3, name: "Difusor de Aromas Eléctrico USB", description: "Humidificador y difusor ultrasónico con iluminación LED RGB tenue. Silencioso, ideal para relajación y home office.", category: "tecnologia", subcategory: "difusores", price: 14900, oldPrice: 18500, image: "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=600&q=80", badge: "Tendencia", isOffer: true, variants: "Madera Clara, Madera Oscura, Blanco", sizes: "300ml", has3D: true },
+            { id: 4, name: "Espejo LED de Belleza Recargable", description: "Espejo cosmético touch regulable con 3 niveles de luz para maquillaje y cuidado de la piel. Batería USB de larga duración.", category: "tecnologia", subcategory: "belleza", price: 18200, oldPrice: null, image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80", badge: "Belleza", isOffer: false, variants: "Blanco, Rosa, Negro", sizes: "Estándar", has3D: false },
+            { id: 5, name: "Mini Taladro Inalámbrico Multiuso Pro", description: "Herramienta rotativa recargable de alta precisión para perforación, grabado, pulido y artesanías. Ideal para autos y taller.", category: "herramientas", subcategory: "inalambricas", price: 34000, oldPrice: 41000, image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80", badge: "Herramientas", isOffer: false, variants: "Negro/Naranja", sizes: "Kit con Estuche y 24 Accesorios", has3D: true },
+            { id: 6, name: "Kit Limpieza y Detailing Automotor", description: "Set completo de cepillos de cerdas suaves y microfibras de alta absorción para tablero, tapizados y llantas de auto.", category: "herramientas", subcategory: "automotor", price: 12500, oldPrice: 15900, image: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=600&q=80", badge: "Automotor", isOffer: true, variants: "Universal", sizes: "Pack x5 Piezas", has3D: false }
+        ];
+
+        let products = [...defaultProducts];
+
+        let reviews = [
+            { id: 1, name: "Mariana R.", comment: "Los sahumerios son de increíble calidad, duran muchísimo y el aroma llena toda la casa. Súper recomendado!", stars: 5, likes: 14 },
+            { id: 2, name: "Gonzalo M.", comment: "Compré el difusor de aromas y el mini taladro. Llegó todo excelente a Claypole en menos de 24hs. Muy buena atención por WhatsApp.", stars: 5, likes: 9 },
+            { id: 3, name: "Camila V.", comment: "Las fragancias de Saphirus son 100% originales. Excelente precio y atención.", stars: 4, likes: 6 }
+        ];
+
+        let cart = [];
+        let currentFilter = 'todos';
+        let searchQuery = '';
+        let uploadedBase64Image = '';
+        let logoClicks = 0;
+        let activeReviewStar = 'all';
+        let activeDetailProduct = null;
+        let is3DActive = false;
+        let rotationAngle = 0;
+        let currentCollectionTab = 'aromas';
+
+        // CARGA LOCALSTORAGE CON RETROCOMPATIBILIDAD
+        if (localStorage.getItem('toto_settings')) {
+            try { settings = { ...settings, ...JSON.parse(localStorage.getItem('toto_settings')) }; } catch(e) {}
+        }
+        if (localStorage.getItem('toto_products')) {
+            try { products = JSON.parse(localStorage.getItem('toto_products')); } catch(e) {}
+        }
+        if (localStorage.getItem('toto_reviews')) {
+            try { reviews = JSON.parse(localStorage.getItem('toto_reviews')); } catch(e) {}
+        }
+
+        // PERSISTENCIA
+        function saveProductsToStorage() {
+            localStorage.setItem('toto_products', JSON.stringify(products));
+            renderProducts();
+            renderCollections();
+            renderAdminProductsList();
+        }
+
+        function saveReviewsToStorage() {
+            localStorage.setItem('toto_reviews', JSON.stringify(reviews));
+            renderReviews();
+            renderAdminReviewsList();
+        }
+
+        // SISTEMA DE TOAST MODERNO
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            let bg = "bg-carmel-900 text-white";
+            let icon = "fa-info-circle";
+            if (type === 'success') { bg = "bg-emerald-600 text-white"; icon = "fa-check-circle"; }
+            else if (type === 'warn') { bg = "bg-amber-600 text-white"; icon = "fa-exclamation-triangle"; }
+            
+            toast.className = `toast-msg ${bg} py-3 px-5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-bold border border-white/20`;
+            toast.innerHTML = `<i class="fas ${icon} text-sm"></i> <span>${message}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3200);
+        }
+
+        // CONTACTOS Y CONTENIDOS DINÁMICOS
+        function updateUIContacts() {
+            document.getElementById('dispPhone').textContent = settings.phone;
+            document.getElementById('dispEmail').textContent = settings.email;
+            document.getElementById('dispLocation').textContent = settings.location;
+            document.getElementById('barText').textContent = settings.announcement || "🚚 Envíos a todo el país • 💳 3 Cuotas sin interés";
+            document.getElementById('btnContactWa').href = `https://wa.me/${settings.phone}`;
+            document.getElementById('btnWhatsAppFab').href = `https://wa.me/${settings.phone}`;
+            document.getElementById('btnContactMail').href = `mailto:${settings.email}`;
+            
+            const igHandle = settings.instagram.replace('@', '').trim();
+            document.getElementById('btnInstagramFab').href = `https://instagram.com/${igHandle}`;
+
+            document.getElementById('heroBadge').textContent = settings.heroBadge;
+            document.getElementById('heroTitle').textContent = settings.heroTitle;
+            document.getElementById('heroSubtitle').textContent = settings.heroSub;
+        }
+
+        // MODO OSCURO
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            document.body.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('toto_theme', isDark ? 'dark' : 'light');
+            document.getElementById('themeIcon').className = isDark ? 'fas fa-sun text-amber-300' : 'fas fa-moon text-carmel-900';
+            showToast(isDark ? 'Modo Oscuro activado' : 'Modo Claro activado', 'info');
+        }
+
+        if (localStorage.getItem('toto_theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.body.classList.add('dark');
+            setTimeout(() => {
+                document.getElementById('themeIcon').className = 'fas fa-sun text-amber-300';
+            }, 100);
+        }
+
+        // BUSCADOR PREDICTIVO
+        function handleSearchInput(query) {
+            searchQuery = query;
+            renderProducts();
+            showAutocomplete(query);
+            
+            const heroSection = document.getElementById('inicio-destacado');
+            const topContainer = document.getElementById('heroTopContainer');
+            const bottomContainer = document.getElementById('heroBottomContainer');
+
+            if (query.trim().length > 0) {
+                if (topContainer.contains(heroSection)) {
+                    bottomContainer.appendChild(heroSection);
+                }
+                document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                if (bottomContainer.contains(heroSection)) {
+                    topContainer.appendChild(heroSection);
+                }
+            }
+        }
+
+        function handleSearchFocus() {
+            if (searchQuery.trim().length > 0) showAutocomplete(searchQuery);
+        }
+
+        function showAutocomplete(query) {
+            const dropdown = document.getElementById('autocompleteDropdown');
+            if (!query || query.trim() === '') {
+                dropdown.classList.add('hidden');
+                return;
+            }
+
+            const matches = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase())).slice(0, 5);
+            if (matches.length === 0) {
+                dropdown.innerHTML = `<div class="p-3 text-xs opacity-70 text-center">No se encontraron productos coincidentes</div>`;
+            } else {
+                dropdown.innerHTML = matches.map(p => `
+                    <div onclick="openProductDetailModal(${p.id})" class="p-2.5 flex items-center gap-3 hover:bg-carmel-50 dark:hover:bg-zinc-800 cursor-pointer transition-colors">
+                        <img src="${p.image}" class="w-10 h-10 object-cover rounded-lg border border-carmel-200 dark:border-zinc-700">
+                        <div class="flex-1">
+                            <span class="font-bold text-xs block leading-tight">${p.name}</span>
+                            <span class="text-[11px] font-semibold text-amber-600 dark:text-amber-400">$${p.price.toLocaleString('es-AR')}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            dropdown.classList.remove('hidden');
+        }
+
+        function hideAutocomplete() {
+            document.getElementById('autocompleteDropdown').classList.add('hidden');
+        }
+
+        // RENDER DE PRODUCTOS PRINCIPALES
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const offersContainer = document.getElementById('ofertasContainer');
+            const feedback = document.getElementById('searchFeedback');
+
+            let filtered = products.filter(p => {
+                const matchesCategory = currentFilter === 'todos' || p.category === currentFilter;
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if (searchQuery.trim() !== '') {
+                feedback.textContent = `Resultados encontrados para "${searchQuery}": ${filtered.length} producto(s)`;
+            } else {
+                feedback.textContent = `Mostrando todos los productos disponibles`;
+            }
+
+            grid.innerHTML = filtered.length === 0 
+                ? `<div class="col-span-full text-center py-12 bg-white dark:bg-zinc-900 rounded-3xl border border-carmel-200 dark:border-zinc-800">No se encontraron productos para "${searchQuery}".</div>`
+                : filtered.map(p => productCardTemplate(p)).join('');
+
+            const flashOffers = products.filter(p => p.isOffer);
+            offersContainer.innerHTML = flashOffers.map(p => productCardTemplate(p)).join('');
+        }
+
+        // PLANTILLA DE TARJETA CON ESTILOS TEMÁTICOS Y ANIMACIONES
+        function productCardTemplate(p) {
+            const discount = (p.oldPrice && p.oldPrice > p.price) ? Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100) : 0;
+            
+            let categoryTag = "🌸 Sahumerios";
+            let badgeStyle = "theme-badge-sahumerios";
+            if (p.category === 'tecnologia') { 
+                categoryTag = "⚡ Tecnología"; 
+                badgeStyle = "theme-badge-tecnologia";
+            } else if (p.category === 'herramientas') { 
+                categoryTag = "🛠️ Taller"; 
+                badgeStyle = "theme-badge-herramientas";
+            }
+
+            return `
+                <div onclick="openProductDetailModal(${p.id})" class="bg-white dark:bg-zinc-900 rounded-3xl border border-carmel-200 dark:border-zinc-800 overflow-hidden shadow-sm card-hover flex flex-col group cursor-pointer relative">
+                    <div class="relative h-56 bg-carmel-100 dark:bg-zinc-800 overflow-hidden">
+                        <img src="${p.image || 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <span class="absolute top-3 left-3 ${badgeStyle} text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">${p.badge || categoryTag}</span>
+                        ${discount > 0 ? `<span class="absolute top-3 right-3 bg-red-600 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow-lg">-${discount}%</span>` : ''}
+                        ${p.has3D ? `<span class="absolute bottom-3 right-3 bg-zinc-900/80 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur flex items-center gap-1"><i class="fas fa-cube"></i> 3D</span>` : ''}
+                    </div>
+                    <div class="p-5 flex flex-col flex-1 justify-between gap-4">
+                        <div>
+                            <h3 class="font-bold text-base leading-snug group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">${p.name}</h3>
+                            <p class="text-xs opacity-70 line-clamp-2 mt-1">${p.description || 'Ver detalles del producto...'}</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-xl font-extrabold text-amber-600 dark:text-amber-400">$${Number(p.price).toLocaleString('es-AR')}</span>
+                                ${p.oldPrice ? `<span class="text-xs opacity-50 line-through">$${Number(p.oldPrice).toLocaleString('es-AR')}</span>` : ''}
+                            </div>
+                        </div>
+                        <button type="button" class="gen-btn" onclick="event.stopPropagation(); addToCart(${p.id})">
+                            <i class="fas fa-cart-plus"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // FILTRO DE CATEGORÍA CON TEMATIZACIÓN COMPLETA
+        function filterCategory(cat) {
+            currentFilter = cat;
+            document.body.className = "antialiased selection:bg-amber-200 selection:text-amber-900 flex flex-col min-h-screen relative";
+            if (document.documentElement.classList.contains('dark')) {
+                document.body.classList.add('dark');
+            }
+            
+            const logoIcon = document.getElementById('logoIcon');
+            const logoThemeTag = document.getElementById('logoThemeTag');
+
+            if (cat === 'tecnologia') {
+                document.body.classList.add('theme-tecnologia');
+                document.getElementById('logoSub').textContent = "Tech & Trend";
+                logoIcon.innerHTML = "⚡";
+                logoThemeTag.textContent = "Tecnología & Belleza";
+            } else if (cat === 'herramientas') {
+                document.body.classList.add('theme-herramientas');
+                document.getElementById('logoSub').textContent = "Herramientas";
+                logoIcon.innerHTML = "🛠️";
+                logoThemeTag.textContent = "Taller & Automotor";
+            } else {
+                document.body.classList.add('theme-sahumerios');
+                document.getElementById('logoSub').textContent = "Aromística";
+                logoIcon.innerHTML = "🌸";
+                logoThemeTag.textContent = "Catálogo Multirubro";
+            }
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-carmel-900', 'dark:bg-amber-600', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'dark:bg-zinc-900');
+            });
+            event.currentTarget.classList.remove('bg-white', 'dark:bg-zinc-900');
+            event.currentTarget.classList.add('bg-carmel-900', 'dark:bg-amber-600', 'text-white', 'shadow-md');
+            renderProducts();
+        }
+
+        // PESTAÑA COLECCIONES Y SUBCATEGORÍAS
+        function switchCollectionTab(tabKey) {
+            currentCollectionTab = tabKey;
+            
+            // Ocultar contenidos
+            document.querySelectorAll('.col-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(`colContent-${tabKey}`).classList.remove('hidden');
+
+            // Resetear botones
+            document.querySelectorAll('.col-tab-btn').forEach(b => {
+                b.classList.remove('bg-carmel-900', 'dark:bg-amber-600', 'text-white', 'shadow-lg');
+                b.classList.add('bg-white', 'dark:bg-zinc-800', 'text-carmel-900', 'dark:text-white', 'shadow-sm');
+            });
+
+            const activeBtn = document.getElementById(`colTab-${tabKey}`);
+            activeBtn.classList.remove('bg-white', 'dark:bg-zinc-800', 'text-carmel-900', 'dark:text-white', 'shadow-sm');
+            activeBtn.classList.add('bg-carmel-900', 'dark:bg-amber-600', 'text-white', 'shadow-lg');
+
+            renderCollections();
+        }
+
+        function filterSubcategory(category, subcat) {
+            const gridId = category === 'sahumerios' ? 'colGrid-aromas' : (category === 'tecnologia' ? 'colGrid-tech' : 'colGrid-garage');
+            const grid = document.getElementById(gridId);
+            
+            let filtered = products.filter(p => p.category === category);
+            if (subcat !== 'todos') {
+                filtered = filtered.filter(p => p.subcategory === subcat || p.badge?.toLowerCase().includes(subcat) || p.name.toLowerCase().includes(subcat));
+            }
+
+            grid.innerHTML = filtered.length === 0 
+                ? `<div class="col-span-full text-center py-8 opacity-70">No hay productos en esta subcategoría todavía.</div>`
+                : filtered.map(p => productCardTemplate(p)).join('');
+
+            // Estilos de botones de subcategoría
+            const parent = event.currentTarget.parentElement;
+            parent.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-carmel-900', 'bg-cyan-400', 'text-slate-950', 'bg-amber-500', 'text-zinc-950');
+                btn.classList.add('bg-white/20', 'text-white');
+            });
+            event.currentTarget.classList.remove('bg-white/20', 'text-white');
+            event.currentTarget.classList.add('bg-white', 'text-carmel-900');
+        }
+
+        function renderCollections() {
+            const aromasGrid = document.getElementById('colGrid-aromas');
+            const techGrid = document.getElementById('colGrid-tech');
+            const garageGrid = document.getElementById('colGrid-garage');
+
+            if (aromasGrid) {
+                const aromaProds = products.filter(p => p.category === 'sahumerios');
+                aromasGrid.innerHTML = aromaProds.map(p => productCardTemplate(p)).join('');
+            }
+            if (techGrid) {
+                const techProds = products.filter(p => p.category === 'tecnologia');
+                techGrid.innerHTML = techProds.map(p => productCardTemplate(p)).join('');
+            }
+            if (garageGrid) {
+                const garageProds = products.filter(p => p.category === 'herramientas');
+                garageGrid.innerHTML = garageProds.map(p => productCardTemplate(p)).join('');
+            }
+        }
+
+        // MODAL DETALLE DE PRODUCTO
+        function openProductDetailModal(id) {
+            const p = products.find(prod => prod.id === id);
+            if (!p) return;
+            activeDetailProduct = p;
+
+            document.getElementById('detailTitle').textContent = p.name;
+            document.getElementById('detailPrice').textContent = `$${p.price.toLocaleString('es-AR')}`;
+            document.getElementById('detailOldPrice').textContent = p.oldPrice ? `$${p.oldPrice.toLocaleString('es-AR')}` : '';
+            document.getElementById('detailBadge').textContent = p.badge || p.category.toUpperCase();
+            document.getElementById('detailDesc').textContent = p.description || 'Producto garantizado por Toto Aromística.';
+            document.getElementById('detailImage').src = p.image;
+
+            const variantGroup = document.getElementById('variantSelectorGroup');
+            const variantSelect = document.getElementById('detailVariantSelect');
+            if (p.variants && p.variants.trim() !== '') {
+                const varList = p.variants.split(',').map(v => v.trim());
+                variantSelect.innerHTML = varList.map(v => `<option value="${v}">${v}</option>`).join('');
+                variantGroup.classList.remove('hidden');
+            } else { variantGroup.classList.add('hidden'); }
+
+            const sizeGroup = document.getElementById('sizeSelectorGroup');
+            const sizeSelect = document.getElementById('detailSizeSelect');
+            if (p.sizes && p.sizes.trim() !== '') {
+                const sizeList = p.sizes.split(',').map(s => s.trim());
+                sizeSelect.innerHTML = sizeList.map(s => `<option value="${s}">${s}</option>`).join('');
+                sizeGroup.classList.remove('hidden');
+            } else { sizeGroup.classList.add('hidden'); }
+
+            const btn3D = document.getElementById('btnToggle3D');
+            if (p.has3D) { btn3D.classList.remove('hidden'); } 
+            else { btn3D.classList.add('hidden'); }
+
+            is3DActive = false;
+            document.getElementById('detailImage').classList.remove('hidden');
+            document.getElementById('threeDCanvas').classList.add('hidden');
+
+            document.getElementById('productDetailModal').classList.remove('hidden');
+        }
+
+        function closeProductDetailModal() {
+            document.getElementById('productDetailModal').classList.add('hidden');
+            activeDetailProduct = null;
+        }
+
+        // VISTA 3D INTERACTIVA
+        function toggle3DView() {
+            is3DActive = !is3DActive;
+            const img = document.getElementById('detailImage');
+            const canvas = document.getElementById('threeDCanvas');
+            const btnText = document.getElementById('btnToggle3DText');
+
+            if (is3DActive) {
+                img.classList.add('hidden');
+                canvas.classList.remove('hidden');
+                canvas.classList.add('flex');
+                btnText.textContent = "Ver Foto 2D";
+            } else {
+                img.classList.remove('hidden');
+                canvas.classList.add('hidden');
+                canvas.classList.remove('flex');
+                btnText.textContent = "Alternar Vista 3D / 360°";
+            }
+        }
+
+        function start3DRotate(e) {
+            let startX = e.clientX || (e.touches && e.touches[0].clientX);
+            const rotateElem = document.getElementById('rotateObject3D');
+            
+            function onMove(moveEvent) {
+                let currentX = moveEvent.clientX || (moveEvent.touches && moveEvent.touches[0].clientX);
+                let delta = (currentX - startX);
+                rotationAngle += delta * 0.4;
+                rotateElem.style.transform = `rotateY(${rotationAngle}deg) rotateZ(${rotationAngle * 0.2}deg)`;
+                startX = currentX;
+            }
+
+            function onEnd() {
+                window.removeEventListener('mousemove', onMove);
+                window.removeEventListener('mouseup', onEnd);
+                window.removeEventListener('touchmove', onMove);
+                window.removeEventListener('touchend', onEnd);
+            }
+
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onEnd);
+            window.addEventListener('touchmove', onMove);
+            window.addEventListener('touchend', onEnd);
+        }
+
+        // AGREGAR AL CARRITO CON ANIMACIONES
+        function addCurrentDetailToCartWithAnim(btnElem) {
+            if (!activeDetailProduct) return;
+            const variantSelect = document.getElementById('detailVariantSelect');
+            const sizeSelect = document.getElementById('detailSizeSelect');
+
+            let customName = activeDetailProduct.name;
+            let options = [];
+            
+            if (!document.getElementById('variantSelectorGroup').classList.contains('hidden')) { options.push(variantSelect.value); }
+            if (!document.getElementById('sizeSelectorGroup').classList.contains('hidden')) { options.push(sizeSelect.value); }
+
+            if (options.length > 0) { customName += ` (${options.join(' - ')})`; }
+
+            const itemToCart = { ...activeDetailProduct, name: customName };
+            const existing = cart.find(i => i.name === customName);
+            if (existing) { existing.quantity += 1; }
+            else { cart.push({ ...itemToCart, quantity: 1 }); }
+
+            updateCartUI();
+            closeProductDetailModal();
+            showToast(`¡${activeDetailProduct.name} agregado al carrito!`, 'success');
+            toggleCart();
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) { existing.quantity += 1; } 
+            else { cart.push({ ...product, quantity: 1 }); }
+            updateCartUI();
+            showToast(`¡${product.name} agregado al carrito!`, 'success');
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cartCount');
+            const container = document.getElementById('cartItemsContainer');
+            const totalElem = document.getElementById('cartTotalPrice');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            countElem.textContent = totalCount;
+            totalElem.textContent = `$${totalPrice.toLocaleString('es-AR')}`;
+
+            // Animación de rebote en el icono de carrito
+            countElem.classList.add('scale-125');
+            setTimeout(() => countElem.classList.remove('scale-125'), 200);
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center opacity-70 text-sm my-auto">Tu carrito está vacío.</p>`;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between gap-4 bg-carmel-50 dark:bg-zinc-950 p-3 rounded-2xl border border-carmel-200 dark:border-zinc-800">
+                    <img src="${item.image}" class="w-14 h-14 object-cover rounded-xl">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-xs">${item.name}</h4>
+                        <span class="text-xs opacity-70">$${item.price.toLocaleString('es-AR')} x ${item.quantity}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="changeQuantity(${item.id}, -1)" class="w-7 h-7 bg-white dark:bg-zinc-900 border rounded-lg flex items-center justify-center text-xs font-bold active:scale-90 transition-transform">-</button>
+                        <span class="text-xs font-bold">${item.quantity}</span>
+                        <button onclick="changeQuantity(${item.id}, 1)" class="w-7 h-7 bg-white dark:bg-zinc-900 border rounded-lg flex items-center justify-center text-xs font-bold active:scale-90 transition-transform">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function changeQuantity(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function toggleCart() { document.getElementById('cartModal').classList.toggle('hidden'); }
+        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTopBtn');
+            if (window.scrollY > 400) {
+                btn.classList.remove('hidden');
+                btn.classList.add('flex');
+            } else {
+                btn.classList.add('hidden');
+                btn.classList.remove('flex');
+            }
+        });
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return showToast('Tu carrito está vacío.', 'warn');
+            let message = "Hola! Quiero realizar el siguiente pedido desde *Toto Aromística*:\n\n";
+            cart.forEach(item => {
+                message += `• ${item.quantity}x ${item.name} ($${(item.price * item.quantity).toLocaleString('es-AR')})\n`;
+            });
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `\n*Total a abonar: $${totalPrice.toLocaleString('es-AR')}*\n\n¿Me confirman stock y datos para coordinar pago y envío?`;
+            
+            window.open(`https://wa.me/${settings.phone}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // RESEÑAS
+        function renderReviews() {
+            const container = document.getElementById('reviewsContainer');
+            let filtered = reviews;
+            if (activeReviewStar !== 'all') {
+                filtered = reviews.filter(r => r.stars === parseInt(activeReviewStar));
+            }
+
+            container.innerHTML = filtered.map(r => `
+                <div class="bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-carmel-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between gap-4 card-hover">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-sm">${r.name}</span>
+                            <span class="text-amber-500 text-xs">${'⭐'.repeat(r.stars)}</span>
+                        </div>
+                        <p class="text-xs leading-relaxed italic opacity-80">"${r.comment}"</p>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-carmel-100 dark:border-zinc-800 pt-3">
+                        <span class="text-[10px] font-semibold opacity-60">Cliente Verificado ✔️</span>
+                        <button onclick="likeReview(${r.id})" class="bg-carmel-50 dark:bg-zinc-800 hover:bg-carmel-100 text-xs font-bold px-3 py-1 rounded-full transition-all flex items-center gap-1.5 active:scale-95">
+                            <i class="far fa-thumbs-up"></i> Útil (${r.likes})
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function likeReview(id) {
+            const rev = reviews.find(r => r.id === id);
+            if (rev) {
+                rev.likes += 1;
+                saveReviewsToStorage();
+                showToast('¡Gracias por tu valoración!', 'success');
+            }
+        }
+
+        function filterReviews(star) {
+            activeReviewStar = star;
+            document.querySelectorAll('.review-btn').forEach(btn => {
+                btn.classList.remove('bg-carmel-900', 'dark:bg-amber-600', 'text-white');
+                btn.classList.add('bg-white', 'dark:bg-zinc-900');
+            });
+            event.target.classList.remove('bg-white', 'dark:bg-zinc-900');
+            event.target.classList.add('bg-carmel-900', 'dark:bg-amber-600', 'text-white');
+            renderReviews();
+        }
+
+        // ================= ASISTENTE INTELIGENTE IA (AROMABOT) =================
+        function toggleAiModal() {
+            document.getElementById('aiChatModal').classList.toggle('hidden');
+        }
+
+        function sendQuickAiQuery(text) {
+            document.getElementById('aiUserInput').value = text;
+            sendAiMessage();
+        }
+
+        async function sendAiMessage() {
+            const input = document.getElementById('aiUserInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatMessages = document.getElementById('aiChatMessages');
+            
+            // Render mensaje de usuario
+            chatMessages.innerHTML += `
+                <div class="flex gap-2 items-start justify-end">
+                    <div class="bg-amber-600 text-white p-3 rounded-2xl max-w-[85%] leading-relaxed shadow-sm">
+                        ${message}
+                    </div>
+                    <div class="w-7 h-7 rounded-full bg-zinc-700 text-white flex items-center justify-center shrink-0 text-xs">👤</div>
+                </div>
+            `;
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Indicador de escribiendo
+            const loadingId = 'loading-' + Date.now();
+            chatMessages.innerHTML += `
+                <div id="${loadingId}" class="flex gap-2 items-start">
+                    <div class="w-7 h-7 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0 text-xs">✨</div>
+                    <div class="bg-carmel-100/70 dark:bg-zinc-800 p-3 rounded-2xl max-w-[85%] flex items-center gap-1.5 opacity-70">
+                        <span class="w-2 h-2 rounded-full bg-amber-500 animate-bounce"></span>
+                        <span class="w-2 h-2 rounded-full bg-amber-500 animate-bounce [animation-delay:0.2s]"></span>
+                        <span class="w-2 h-2 rounded-full bg-amber-500 animate-bounce [animation-delay:0.4s]"></span>
+                    </div>
+                </div>
+            `;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Procesar respuesta: API de Gemini o Heurística Inteligente
+            let aiResponse = "";
+            let recommendedProduct = null;
+
+            if (settings.geminiApiKey && settings.geminiApiKey.trim() !== '') {
+                try {
+                    const catalogSummary = products.map(p => `- ${p.name} ($${p.price}): ${p.description} (Categoría: ${p.category})`).join("\n");
+                    const prompt = `Eres ${settings.botName || 'AromaBot'}, un asistente amable y experto en aromaterapia, fragancias, tecnología del hogar y herramientas para la tienda "Toto Aromística".
+Catálogo disponible:
+${catalogSummary}
+
+Pregunta del cliente: "${message}"
+
+Responde en español de forma breve, cálida y recomienda el producto más adecuado del catálogo explicando por qué le va a servir.`;
+
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${settings.geminiApiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                    });
+                    const data = await res.json();
+                    if (data.candidates && data.candidates[0].content.parts[0].text) {
+                        aiResponse = data.candidates[0].content.parts[0].text;
+                    }
+                } catch(err) {
+                    console.error("Error en Gemini API:", err);
+                }
+            }
+
+            // Fallback inteligente Heurístico si no hay clave o falló la llamada
+            if (!aiResponse) {
+                const lower = message.toLowerCase();
+                if (lower.includes('dormir') || lower.includes('relaj') || lower.includes('paz') || lower.includes('estrés')) {
+                    recommendedProduct = products.find(p => p.id === 1) || products[0];
+                    aiResponse = `Para relajar tu mente y generar un clima de paz para dormir, te recomiendo especialmente nuestro **${recommendedProduct.name}** con notas de Lavanda y Sándalo. Podés prender una varilla 20 minutos antes de acostarte.`;
+                } else if (lower.includes('auto') || lower.includes('car') || lower.includes('coche') || lower.includes('saphirus')) {
+                    recommendedProduct = products.find(p => p.id === 2) || products[1];
+                    aiResponse = `¡Para el auto no hay nada mejor que el **${recommendedProduct.name}**! Te sugiero fragancias limpias como Marina o Bebé para mantener el habitáculo siempre impecable.`;
+                } else if (lower.includes('herramienta') || lower.includes('taller') || lower.includes('arregl') || lower.includes('taladro')) {
+                    recommendedProduct = products.find(p => p.category === 'herramientas') || products[4];
+                    aiResponse = `Para tus tareas de arreglo y precisión te sugiero el **${recommendedProduct.name}**. Es inalámbrico, muy cómodo y viene con todos sus accesorios en estuche.`;
+                } else if (lower.includes('difusor') || lower.includes('usb') || lower.includes('tech') || lower.includes('luz')) {
+                    recommendedProduct = products.find(p => p.id === 3) || products[2];
+                    aiResponse = `El **${recommendedProduct.name}** es perfecto: aromatiza de manera continua por ultrasonido y cuenta con luces tenues RGB para acompañar tus jornadas de trabajo o relax.`;
+                } else {
+                    recommendedProduct = products[0];
+                    aiResponse = `¡Gran consulta! Para lo que buscas te recomiendo mirar nuestro **${recommendedProduct.name}** o consultar nuestro catálogo completo. Todo cuenta con garantía y despacho rápido.`;
+                }
+            }
+
+            // Remover loading
+            const loadingElem = document.getElementById(loadingId);
+            if (loadingElem) loadingElem.remove();
+
+            // Render respuesta
+            let cardHtml = "";
+            if (recommendedProduct) {
+                cardHtml = `
+                    <div class="mt-2 bg-white dark:bg-zinc-900 border border-carmel-200 dark:border-zinc-700 p-2.5 rounded-xl flex items-center gap-3">
+                        <img src="${recommendedProduct.image}" class="w-10 h-10 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <span class="font-bold text-[11px] block leading-tight">${recommendedProduct.name}</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-extrabold text-xs">$${recommendedProduct.price.toLocaleString('es-AR')}</span>
+                        </div>
+                        <button onclick="addToCart(${recommendedProduct.id})" class="bg-amber-600 text-white px-2.5 py-1.5 rounded-lg text-[10px] font-bold hover:bg-amber-700 transition-colors">
+                            Agregar
+                        </button>
+                    </div>
+                `;
+            }
+
+            chatMessages.innerHTML += `
+                <div class="flex gap-2 items-start">
+                    <div class="w-7 h-7 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0 text-xs">✨</div>
+                    <div class="bg-carmel-100/70 dark:bg-zinc-800 p-3 rounded-2xl max-w-[85%] leading-relaxed">
+                        ${aiResponse}
+                        ${cardHtml}
+                    </div>
+                </div>
+            `;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // ================= PANEL ADMIN Y GESTIÓN JSON =================
+        function openAdminModalWithPrompt() {
+            const pass = prompt('Ingrese la contraseña de administración:');
+            if (pass === settings.pass) {
+                document.getElementById('cfgPhone').value = settings.phone;
+                document.getElementById('cfgInstagram').value = settings.instagram;
+                document.getElementById('cfgEmail').value = settings.email;
+                document.getElementById('cfgLocation').value = settings.location;
+                document.getElementById('cfgAnnouncement').value = settings.announcement || "";
+                
+                document.getElementById('cfgHeroBadge').value = settings.heroBadge;
+                document.getElementById('cfgHeroTitle').value = settings.heroTitle;
+                document.getElementById('cfgHeroSub').value = settings.heroSub;
+
+                document.getElementById('cfgGeminiKey').value = settings.geminiApiKey || "";
+                document.getElementById('cfgBotName').value = settings.botName || "AromaBot";
+
+                document.getElementById('adminModal').classList.remove('hidden');
+                renderAdminProductsList();
+                renderAdminReviewsList();
+                showToast('Bienvenido al Panel de Administración', 'info');
+            } else if (pass !== null) {
+                showToast('Contraseña incorrecta.', 'warn');
+            }
+        }
+
+        function openAdminModal() {
+            openAdminModalWithPrompt();
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+            resetAdminForm();
+        }
+
+        function handleLogoClick(e) {
+            e.preventDefault();
+            logoClicks++;
+            if (logoClicks >= 3) {
+                logoClicks = 0;
+                openAdminModal();
+            }
+            setTimeout(() => logoClicks = 0, 1500);
+        }
+
+        function switchAdminTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-carmel-900', 'dark:bg-amber-600', 'text-white');
+                btn.classList.add('bg-carmel-100', 'dark:bg-zinc-800');
+            });
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tabBtn-${tabName}`);
+            activeBtn.classList.remove('bg-carmel-100', 'dark:bg-zinc-800');
+            activeBtn.classList.add('bg-carmel-900', 'dark:bg-amber-600', 'text-white');
+        }
+
+        // REDACTAR CON IA EN ADMIN
+        async function generateAiDescriptionForAdmin() {
+            const name = document.getElementById('adminName').value.trim();
+            const cat = document.getElementById('adminCategory').value;
+            const variants = document.getElementById('adminVariants').value.trim();
+
+            if (!name) return showToast('Escribí el nombre del producto primero', 'warn');
+
+            showToast('Generando descripción persuasiva con IA...', 'info');
+
+            if (settings.geminiApiKey && settings.geminiApiKey.trim() !== '') {
+                try {
+                    const prompt = `Redacta una descripción comercial de 2 a 3 oraciones muy persuasivas y elegantes para una tienda online de este producto:
+Nombre: "${name}"
+Categoría: "${cat}"
+Variantes: "${variants}"
+Destaca los beneficios y la calidad.`;
+
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${settings.geminiApiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                    });
+                    const data = await res.json();
+                    if (data.candidates && data.candidates[0].content.parts[0].text) {
+                        document.getElementById('adminDesc').value = data.candidates[0].content.parts[0].text.trim();
+                        showToast('¡Descripción generada con éxito!', 'success');
+                        return;
+                    }
+                } catch(e) {
+                    console.error(e);
+                }
+            }
+
+            // Plantilla automática inteligente
+            const templateDesc = `${name} de alta calidad garantizada por Toto Aromística. Elaborado con componentes de primera línea para asegurar máximo rendimiento, durabilidad y una experiencia inigualable en tu día a día.`;
+            document.getElementById('adminDesc').value = templateDesc;
+            showToast('Descripción generada por plantilla inteligente', 'success');
+        }
+
+        // EXPORTAR E IMPORTAR JSON
+        function exportJsonFile() {
+            const dataToExport = {
+                settings: settings,
+                products: products,
+                reviews: reviews
+            };
+            const jsonStr = JSON.stringify(dataToExport, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `toto_aromistica_backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Archivo JSON descargado con éxito', 'success');
+        }
+
+        function copyJsonToClipboard() {
+            const dataToExport = { settings, products, reviews };
+            navigator.clipboard.writeText(JSON.stringify(dataToExport, null, 2))
+                .then(() => showToast('¡JSON copiado al portapapeles!', 'success'))
+                .catch(() => showToast('No se pudo copiar automáticamente', 'warn'));
+        }
+
+        function importJsonData() {
+            const text = document.getElementById('importJsonArea').value.trim();
+            if (!text) return showToast('Pegá el contenido JSON antes de importar', 'warn');
+
+            try {
+                const parsed = JSON.parse(text);
+                if (Array.isArray(parsed)) {
+                    products = parsed;
+                } else if (parsed.products && Array.isArray(parsed.products)) {
+                    products = parsed.products;
+                    if (parsed.settings) settings = { ...settings, ...parsed.settings };
+                    if (parsed.reviews) reviews = parsed.reviews;
+                } else {
+                    return showToast('Formato JSON no reconocido', 'warn');
+                }
+                saveProductsToStorage();
+                saveReviewsToStorage();
+                localStorage.setItem('toto_settings', JSON.stringify(settings));
+                updateUIContacts();
+                showToast('¡Catálogo importado y actualizado con éxito!', 'success');
+            } catch(e) {
+                showToast('Error de sintaxis en el JSON pegado', 'warn');
+            }
+        }
+
+        function resetToDefaultData() {
+            if (confirm('¿Restaurar los productos y configuraciones iniciales de fábrica?')) {
+                products = [...defaultProducts];
+                saveProductsToStorage();
+                showToast('Productos restaurados al estado original', 'info');
+            }
+        }
+
+        function saveAiSettings() {
+            settings.geminiApiKey = document.getElementById('cfgGeminiKey').value.trim();
+            settings.botName = document.getElementById('cfgBotName').value.trim() || "AromaBot";
+            localStorage.setItem('toto_settings', JSON.stringify(settings));
+            showToast('Configuración de IA actualizada con éxito', 'success');
+        }
+
+        function saveGeneralSettings(e) {
+            e.preventDefault();
+            settings.phone = document.getElementById('cfgPhone').value;
+            settings.instagram = document.getElementById('cfgInstagram').value;
+            settings.email = document.getElementById('cfgEmail').value;
+            settings.location = document.getElementById('cfgLocation').value;
+            settings.announcement = document.getElementById('cfgAnnouncement').value;
+            const newPass = document.getElementById('cfgPass').value;
+            if (newPass.trim() !== "") settings.pass = newPass;
+
+            localStorage.setItem('toto_settings', JSON.stringify(settings));
+            updateUIContacts();
+            showToast('¡Ajustes actualizados al instante en la pantalla!', 'success');
+        }
+
+        function saveHeroSettings(e) {
+            e.preventDefault();
+            settings.heroBadge = document.getElementById('cfgHeroBadge').value;
+            settings.heroTitle = document.getElementById('cfgHeroTitle').value;
+            settings.heroSub = document.getElementById('cfgHeroSub').value;
+
+            localStorage.setItem('toto_settings', JSON.stringify(settings));
+            updateUIContacts();
+            showToast('¡Textos del inicio actualizados en tiempo real!', 'success');
+        }
+
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) { uploadedBase64Image = evt.target.result; };
+                reader.readAsDataURL(file);
+                showToast('Foto cargada desde tu dispositivo', 'info');
+            }
+        }
+
+        function saveProductFromAdmin(e) {
+            e.preventDefault();
+            const id = document.getElementById('adminProductId').value;
+            const name = document.getElementById('adminName').value;
+            const description = document.getElementById('adminDesc').value;
+            const category = document.getElementById('adminCategory').value;
+            const subcategory = document.getElementById('adminSubcategory').value || "general";
+            const price = parseFloat(document.getElementById('adminPrice').value);
+            const oldPrice = parseFloat(document.getElementById('adminOldPrice').value) || null;
+            const variants = document.getElementById('adminVariants').value;
+            const sizes = document.getElementById('adminSizes').value;
+            const badge = document.getElementById('adminBadge').value;
+            const isOffer = document.getElementById('adminIsOffer').checked;
+            const has3D = document.getElementById('adminHas3D').checked;
+            const urlImg = document.getElementById('adminImageUrl').value;
+
+            const finalImage = uploadedBase64Image || urlImg || 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80';
+
+            if (id) {
+                const index = products.findIndex(p => p.id == id);
+                if (index !== -1) {
+                    products[index] = { id: parseInt(id), name, description, category, subcategory, price, oldPrice, variants, sizes, image: finalImage, badge, isOffer, has3D };
+                }
+            } else {
+                const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+                products.push({ id: newId, name, description, category, subcategory, price, oldPrice, variants, sizes, image: finalImage, badge, isOffer, has3D });
+            }
+
+            saveProductsToStorage();
+            resetAdminForm();
+            showToast('Producto guardado correctamente', 'success');
+        }
+
+        function editProductFromAdmin(id) {
+            const p = products.find(prod => prod.id == id);
+            if (!p) return;
+
+            document.getElementById('formTitle').innerHTML = '✏️ Editar Producto Detallado';
+            document.getElementById('adminProductId').value = p.id;
+            document.getElementById('adminName').value = p.name;
+            document.getElementById('adminDesc').value = p.description || '';
+            document.getElementById('adminCategory').value = p.category;
+            document.getElementById('adminSubcategory').value = p.subcategory || '';
+            document.getElementById('adminPrice').value = p.price;
+            document.getElementById('adminOldPrice').value = p.oldPrice || '';
+            document.getElementById('adminVariants').value = p.variants || '';
+            document.getElementById('adminSizes').value = p.sizes || '';
+            document.getElementById('adminBadge').value = p.badge || '';
+            document.getElementById('adminIsOffer').checked = p.isOffer || false;
+            document.getElementById('adminHas3D').checked = p.has3D || false;
+            document.getElementById('adminImageUrl').value = p.image.startsWith('data:') ? '' : p.image;
+            uploadedBase64Image = p.image.startsWith('data:') ? p.image : '';
+        }
+
+        function deleteProductFromAdmin(id) {
+            if (confirm('¿Seguro que querés eliminar este producto?')) {
+                products = products.filter(p => p.id != id);
+                saveProductsToStorage();
+                showToast('Producto eliminado', 'info');
+            }
+        }
+
+        function resetAdminForm() {
+            document.getElementById('formTitle').innerHTML = '<span>📦 Cargar Nuevo Producto Detallado</span>';
+            document.getElementById('adminProductForm').reset();
+            document.getElementById('adminProductId').value = '';
+            uploadedBase64Image = '';
+        }
+
+        function filterAdminProducts(query) {
+            renderAdminProductsList(query);
+        }
+
+        function renderAdminProductsList(filterQuery = '') {
+            const list = document.getElementById('adminProductsList');
+            document.getElementById('prodCount').textContent = products.length;
+
+            let filtered = products;
+            if (filterQuery.trim()) {
+                filtered = products.filter(p => p.name.toLowerCase().includes(filterQuery.toLowerCase()));
+            }
+
+            list.innerHTML = filtered.map(p => `
+                <div class="flex items-center justify-between bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-carmel-200 dark:border-zinc-800 text-xs shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <img src="${p.image}" class="w-12 h-12 object-cover rounded-xl border border-carmel-200 dark:border-zinc-800">
+                        <div>
+                            <span class="font-extrabold block">${p.name}</span>
+                            <span class="opacity-70 font-medium">$${p.price.toLocaleString('es-AR')} | ${p.category} ${p.has3D ? '🧊 3D' : ''}</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editProductFromAdmin(${p.id})" class="bg-carmel-100 dark:bg-zinc-800 px-3 py-1.5 rounded-xl font-bold hover:bg-carmel-200">Editar</button>
+                        <button onclick="deleteProductFromAdmin(${p.id})" class="bg-red-50 text-red-600 px-3 py-1.5 rounded-xl font-bold hover:bg-red-100">Borrar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveReviewFromAdmin(e) {
+            e.preventDefault();
+            const name = document.getElementById('revName').value;
+            const comment = document.getElementById('revComment').value;
+            const stars = parseInt(document.getElementById('revStars').value);
+
+            const newId = reviews.length > 0 ? Math.max(...reviews.map(r => r.id)) + 1 : 1;
+            reviews.unshift({ id: newId, name, comment, stars, likes: 0 });
+            
+            saveReviewsToStorage();
+            e.target.reset();
+            showToast('Reseña agregada con éxito', 'success');
+        }
+
+        function deleteReviewFromAdmin(id) {
+            reviews = reviews.filter(r => r.id !== id);
+            saveReviewsToStorage();
+            showToast('Reseña eliminada', 'info');
+        }
+
+        function renderAdminReviewsList() {
+            const list = document.getElementById('adminReviewsList');
+            list.innerHTML = reviews.map(r => `
+                <div class="flex items-center justify-between bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-carmel-200 dark:border-zinc-800 text-xs">
+                    <div>
+                        <span class="font-bold block">${r.name} (${'⭐'.repeat(r.stars)})</span>
+                        <span class="opacity-70 italic">"${r.comment}"</span>
+                    </div>
+                    <button onclick="deleteReviewFromAdmin(${r.id})" class="bg-red-50 text-red-600 px-3 py-1.5 rounded-xl font-bold">Borrar</button>
+                </div>
+            `).join('');
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'F2') openAdminModal();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updateUIContacts();
+            renderProducts();
+            renderCollections();
+            renderReviews();
+        });
+    </script>
+</body>
+</html>

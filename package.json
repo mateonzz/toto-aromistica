@@ -1,0 +1,24 @@
+{
+  "name": "toto-aromistica",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Tienda online de Toto Aromistica (sitio estatico generado con Tailwind CSS).",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:css": "node node_modules/tailwindcss/lib/cli.js -i src/styles/tailwind.css -o .tmp/tailwind.css --minify",
+    "dev": "node scripts/dev.js",
+    "serve": "node scripts/serve.js dist",
+    "images": "node scripts/optimize-images.js",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.17"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.4.0"
+  }
+}

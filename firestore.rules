@@ -1,0 +1,104 @@
+rules_version = '2';
+
+/* Seguridad de Toto Aromística
+   ----------------------------
+   - Catálogo, configuración y reseñas aprobadas: lectura pública.
+   - Reseñas nuevas: cualquiera puede crear una, pero SIEMPRE entra como
+     pendiente (approved == false) y con validación de campos.
+   - Costos, ventas, productos, configuración y moderación: solo usuarios
+     autenticados (el dueño de la tienda).
+   - El registro público de cuentas debe quedar DESACTIVADO en Firebase:
+     Authentication -> Settings -> User actions -> "Enable create (sign-up)"
+     apagado. La única cuenta se crea a mano desde la consola.
+   - No hay auto-registro desde la web: el panel solo inicia sesión. */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn();
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    /* Base de conocimiento del asistente.
+       Las entradas publicadas son públicas; los borradores solo los ve el
+       administrador. El contenido nunca debe incluir costos, pedidos,
+       contactos ni claves. */
+    match /knowledge/{entryId} {
+      allow get, list: if isAdmin() || resource.data.published == true;
+      allow write: if isAdmin();
+    }
+
+    /* Avisos de reposición: el visitante solo puede CREAR un aviso con
+       consentimiento explícito. Leer, modificar o borrar contactos queda
+       reservado al administrador. */
+    match /stockAlerts/{alertId} {
+      allow read, update, delete: if isAdmin();
+
+      allow create: if isValidStockAlert(request.resource.data);
+
+      function isValidStockAlert(data) {
+        return data.keys().hasOnly([
+            'productId', 'productName', 'variantId', 'variantName',
+            'contact', 'consent', 'status', 'createdAt'
+          ])
+          && (data.productId is string || data.productId is number)
+          && data.productName is string
+          && data.productName.size() <= 140
+          && data.variantName is string
+          && data.variantName.size() <= 80
+          && data.contact is string
+          && data.contact.size() >= 5
+          && data.contact.size() <= 120
+          && data.consent == true
+          && data.status == 'pending'
+          && data.createdAt == request.time;
+      }
+    }
+
+    match /reviews/{reviewId} {
+      allow get, list: if isAdmin() || resource.data.approved == true;
+
+      allow create: if isValidReview(request.resource.data);
+
+      allow update, delete: if isAdmin();
+
+      function isValidReview(data) {
+        return data.keys().hasOnly(['productId', 'name', 'rating', 'comment', 'approved', 'createdAt'])
+          && (data.productId is string || data.productId is number)
+          && data.name is string
+          && data.name.size() >= 1
+          && data.name.size() <= 40
+          && data.rating is number
+          && data.rating >= 1
+          && data.rating <= 5
+          && data.comment is string
+          && data.comment.size() >= 5
+          && data.comment.size() <= 600
+          && data.approved == false
+          && data.createdAt == request.time;
+      }
+    }
+
+    match /costs/{productId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /orders/{orderId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

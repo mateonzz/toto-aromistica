@@ -1,0 +1,26 @@
+rules_version = '2';
+
+/* Imágenes de productos y del sitio: lectura pública, escritura solo para
+   la cuenta autenticada del dueño (el registro público debe estar
+   desactivado). Límite de 5 MB y solo imágenes. */
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /products/{productId}/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    match /site/{kind}/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

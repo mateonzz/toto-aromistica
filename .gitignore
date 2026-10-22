@@ -1,1 +1,27 @@
+# Dependencias
+node_modules/
+
+# Build generado
+dist/
+.tmp/
+.vercel/output/
+
+# Cache de imagenes originales descargadas por npm run images
+assets/img/.cache/
+
+# Configuracion local y credenciales
+.env
+.env.*
+!.env.example
+firebase-config.local.js
+serviceAccount*.json
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Vercel (carpeta local de vinculacion)
 .vercel

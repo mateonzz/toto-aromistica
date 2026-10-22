@@ -1,159 +1,707 @@
 {
+  "schemaVersion": 2,
   "settings": {
     "brandName": "Toto Aromística",
+    "tagline": "Sahumerios artesanales, aromatizantes y herramientas",
     "phone": "541151363290",
     "instagram": "toto.aromistica",
     "email": "sahumerioshema@gmail.com",
-    "location": "Claypole, GBA y Envíos Nacionales",
-    "pass": "100721",
-    "announcement": "🚚 Envíos a todo el país • 💳 3 Cuotas sin interés • 🌸 Aromaterapia, Tech y Herramientas",
+    "location": "Claypole, Pcia. de Buenos Aires",
+    "announcement": "Desde 2024 ? Env?os a todo el pa?s ? Compra coordinada por WhatsApp",
     "heroBadge": "Aromas, Tendencias y Herramientas",
     "heroTitle": "Transformá tus espacios, potenciá tu día a día.",
     "heroSub": "Descubrí nuestra selección exclusiva de sahumerios artesanales, aromatizantes Saphirus, tecnología en tendencia y herramientas prácticas.",
-    "heroBtn1": "Explorar Catálogo",
-    "heroBtn2": "Ver Categorías",
-    "catalogTitle": "Catálogo de Productos",
-    "catalogSub": "Mostrando todos los productos disponibles",
-    "categoriesTitle": "Categorías & Subcategorías",
-    "categoriesSub": "Explorá cada mundo con su propia temática visual inmersiva, decoraciones y productos clasificados.",
-    "catNameAromas": "Mundo Aromas & Bienestar",
-    "catDescAromas": "Varillas aromáticas maceradas con aceites esenciales, conos de defumación y aromatizantes textiles que transforman la energía de tu hogar.",
-    "catNameTech": "Cyber Tech & Cuidado LED",
-    "catDescTech": "Humidificadores ultrasónicos silenciosos, espejos touch recargables y dispositivos modernos para potenciar tu confort y estética diaria.",
-    "catNameGarage": "Garaje, Autos & Taller",
-    "catDescGarage": "Sets rotativos inalámbricos, accesorios automotrices, kits de precisión y máquinas resistentes pensadas para arreglos del auto y el hogar.",
-    "offersTitle": "Descuentos Especiales",
-    "offersSub": "Precios por tiempo limitado en artículos seleccionados",
-    "reviewsTitle": "Opiniones y Valoraciones",
-    "reviewsSub": "Lo que dicen quienes ya eligieron Toto Aromística",
-    "contactTitle": "Contacto Directo",
-    "contactSub": "Atención personalizada para coordinar tus compras y envíos",
-    "footerText": "Toto Aromística • Sahumerios • Aromatizantes Saphirus • Belleza & Tecnología • Herramientas",
-    "geminiApiKey": "",
+    "heroBtn1": "Ver catálogo",
+    "heroBtn2": "Envíos y retiro",
+    "heroImage": {
+      "file": "hero",
+      "alt": "Sahumerios artesanales encendidos sobre una mesa de madera",
+      "source": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1600&q=80"
+    },
+    "heroCaption": "Sahumerios y aromatizantes artesanales elaborados con pasión",
+    "catalogTitle": "Catálogo de productos",
+    "catalogSub": "Elegí categoría, variante y cantidad. El stock se muestra como disponible o agotado.",
+    "offersTitle": "Ofertas y combos",
+    "offersSub": "Precios especiales en artículos seleccionados y kits para regalar.",
+    "reviewsTitle": "Opiniones de clientes",
+    "reviewsSub": "Valoraciones reales de quienes ya compraron.",
+    "contactTitle": "Contacto",
+    "contactSub": "Atención directa para coordinar tu compra, el envío o el retiro.",
+    "footerText": "© 2024 - 2026 Toto Aromística • Todos los derechos reservados.",
     "botName": "AromaBot",
-    "jsonBinId": "",
-    "jsonBinKey": "",
-    "githubToken": ""
+    "botIntro": "Responde preguntas frecuentes sobre productos, disponibilidad, envíos, retiro y compra.",
+    "siteUrl": "https://totoaromistica.vercel.app",
+    "currency": "ARS",
+    "locale": "es-AR",
+    "lowStockThreshold": 5,
+    "catalogKicker": "01 · Colección",
+    "offersKicker": "02 · Ofertas y combos",
+    "shippingKicker": "03 · Logística",
+    "reviewsKicker": "05 · Opiniones",
+    "helpKicker": "06 · Asistente",
+    "confidenceKicker": "04 · Compra informada",
+    "contactKicker": "07 · Hablemos",
+    "shippingTitle": "Envíos y retiro",
+    "shippingSub": "Elegí cómo recibir tu pedido. El costo del envío se muestra aparte del subtotal.",
+    "helpTitle": "¿Dudas antes de comprar?",
+    "helpSub": "El asistente responde con la información publicada por la tienda. Si no sabe algo, te deriva al WhatsApp.",
+    "confidenceTitle": "Compra con confianza",
+    "confidenceSub": "Medios de pago, retiro, preparación y cambios: la información que la tienda tenga confirmada, sin condiciones inventadas.",
+    "heroNote": "Desde 2024 ? Atención directa por WhatsApp",
+    "botGreeting": "¡Hola! Soy el asistente de la tienda. Puedo ayudarte con productos, disponibilidad, envíos, retiro, regalos y compra. Si no sé algo, te derivo a WhatsApp.",
+    "botFallback": "No encontré esa información en la tienda. Para no inventar datos, te invito a consultarnos por WhatsApp y te respondemos a la brevedad.",
+    "botDisclaimer": "Asistente automático con información publicada por la tienda. No inventa precios, stock, tiempos ni políticas. No muestra cantidades exactas de stock.",
+    "botSuggestions": [
+      "¿Hacen envíos?",
+      "¿Cómo sé si hay stock?",
+      "¿Qué formas de pago tienen?",
+      "¿Puedo retirar en Claypole?",
+      "¿Qué productos tienen?",
+      "¿Cómo compro?"
+    ],
+    "policies": {
+      "payments": "",
+      "pickup": "Coordinamos día y horario por WhatsApp. Sin costo de envío.",
+      "prep": "",
+      "returns": ""
+    },
+    "gift": {
+      "enabled": false,
+      "title": "Opciones de regalo",
+      "description": "Si querés que tu pedido sea un regalo, contanos al coordinar la compra.",
+      "messageEnabled": true,
+      "options": []
+    },
+    "safety": {
+      "incense": "Uso responsable: encendé la varilla, apagá la llama y dejá que humee sobre una superficie resistente al calor. No dejes sahumerios encendidos sin supervisión, mantenelos lejos de materiales inflamables y ventilá el ambiente.",
+      "soap": "Uso externo. Evitá el contacto con los ojos y la piel irritada. Si aparece irritación, suspendé el uso y consultá a un profesional de la salud. Mantener fuera del alcance de niñas y niños."
+    },
+    "taxonomy": {
+      "families": [
+        "Amaderado",
+        "Floral",
+        "Dulce",
+        "Fresco",
+        "Frutal",
+        "Cítrico",
+        "Herbal"
+      ],
+      "moments": [
+        "Hogar",
+        "Meditación",
+        "Relax",
+        "Trabajo",
+        "Taller",
+        "Regalo"
+      ],
+      "intensities": [
+        {
+          "value": 1,
+          "label": "Muy suave"
+        },
+        {
+          "value": 2,
+          "label": "Suave"
+        },
+        {
+          "value": 3,
+          "label": "Media"
+        },
+        {
+          "value": 4,
+          "label": "Intensa"
+        },
+        {
+          "value": 5,
+          "label": "Muy intensa"
+        }
+      ]
+    },
+    "ui": {
+      "reveal": true,
+      "hover": true,
+      "marquee": true,
+      "kenburns": true,
+      "buttonFx": true,
+      "displayFont": "Playfair Display",
+      "colors": {
+        "forest": "#1b3812",
+        "forest2": "#12260b",
+        "lime": "#d3fa99",
+        "accent": "#4e6b30"
+      },
+      "offerFx": true
+    },
+    "images": {
+      "logo": "/assets/img/brand/logo-192.webp",
+      "hero": "/assets/img/hero-1200.webp",
+      "og": "/assets/img/og-image.jpg"
+    },
+    "stats": [
+      {
+        "num": "Desde 2024",
+        "label": "Vendiendo la mejor calidad"
+      },
+      {
+        "num": "+1500 Ventas",
+        "label": "Clientes satisfechos en todo el país"
+      },
+      {
+        "num": "Atención real",
+        "label": "Te respondemos por WhatsApp"
+      },
+      {
+        "num": "Envíos",
+        "label": "A todo el país o retiro en Claypole y al rededores"
+      }
+    ],
+    "marqueeItems": [
+      "Sahumerios artesanales",
+      "Aromatizantes",
+      "Tecnología",
+      "Herramientas",
+      "Envíos a todo el país",
+      "Atención por WhatsApp"
+    ],
+    "reviewForm": {
+      "title": "Deja tu reseña",
+      "subtitle": "Tu experiencia ayuda a otras personas a elegir. Publicamos la reseña después de revisarla.",
+      "namePlaceholder": "Tu nombre o iniciales",
+      "commentPlaceholder": "Contanos qué te pareció el producto",
+      "success": "¡Gracias! Tu reseña quedó pendiente de revisión.",
+      "localSuccess": "¡Gracias! Tu reseña quedó guardada y se publicará cuando la tienda la apruebe."
+    },
+    "navOffersLabel": "Ofertas"
   },
+  "shipping": {
+    "pickup": {
+      "enabled": true,
+      "label": "A todo el país o retiro en Claypole",
+      "detail": "Coordinamos día y horario por WhatsApp. Sin costo de envío.",
+      "cost": 0
+    },
+    "delivery": {
+      "enabled": true,
+      "label": "Envío a domicilio",
+      "carrier": "Correo Argentino",
+      "rateSource": "manual",
+      "ratesUpdatedAt": null,
+      "freeFrom": null,
+      "note": "El costo final se confirma según código postal, peso y medidas del paquete.",
+      "zones": []
+    },
+    "quoteLabel": "A cotizar"
+  },
+  "categories": [
+    {
+      "id": "sahumerios",
+      "name": "Aromas y bienestar",
+      "short": "Aromas",
+      "theme": "aromas",
+      "blurb": "Sahumerios artesanales y aromatizantes textiles de alta persistencia."
+    },
+    {
+      "id": "tecnologia",
+      "name": "Tecnología y belleza",
+      "short": "Tecnología",
+      "theme": "tecnologia",
+      "blurb": "Difusores, espejos LED y dispositivos para el día a día."
+    },
+    {
+      "id": "herramientas",
+      "name": "Herramientas y taller",
+      "short": "Herramientas",
+      "theme": "herramientas",
+      "blurb": "Herramientas inalámbricas y kits para el auto y el hogar."
+    }
+  ],
   "products": [
     {
       "id": 1,
+      "slug": "kit-sahumerios-artesanales-premium",
+      "type": "product",
       "name": "Kit Sahumerios Artesanales Premium",
-      "description": "Selección de varillas aromáticas artesanales de alta calidad con esencias naturales puras para meditación, limpieza energética y armonización de ambientes.",
       "category": "sahumerios",
-      "subcategory": "artesanales",
+      "shortDesc": "Varillas artesanales de alta duración con esencias naturales.",
+      "description": "Selección de varillas aromáticas artesanales de alta calidad con esencias naturales para meditación y aromatización de ambientes.",
       "price": 4800,
-      "oldPrice": 6000,
+      "compareAtPrice": 6000,
       "stock": 18,
-      "image": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80",
-      "badge": "Más Vendido",
+      "badge": "Más vendido",
       "isOffer": true,
-      "variants": "Sándalo, Lavanda, Rosas, Vainilla",
-      "sizes": "Caja x10, Caja x20",
-      "has3D": true
+      "weightGrams": null,
+      "dimensionsCm": null,
+      "images": [
+        {
+          "file": "kit-sahumerios",
+          "alt": "Kit de sahumerios artesanales premium",
+          "source": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1000&q=80"
+        }
+      ],
+      "variants": [
+        {
+          "id": "sandalo",
+          "name": "Sándalo",
+          "available": true
+        },
+        {
+          "id": "lavanda",
+          "name": "Lavanda",
+          "available": true
+        },
+        {
+          "id": "rosas",
+          "name": "Rosas",
+          "available": true
+        },
+        {
+          "id": "vainilla",
+          "name": "Vainilla",
+          "available": true
+        }
+      ],
+      "details": [
+        "Caja x10 o x20 unidades",
+        "Elaboración artesanal"
+      ],
+      "comboItems": [],
+      "families": [
+        "Amaderado",
+        "Floral",
+        "Dulce"
+      ],
+      "moments": [
+        "Hogar",
+        "Meditación"
+      ],
+      "ingredients": "Varillas aromáticas con esencias naturales.",
+      "size": "",
+      "usage": "",
+      "care": "",
+      "duration": "",
+      "warnings": "",
+      "giftEligible": true
     },
     {
       "id": 2,
+      "slug": "aromatizante-saphirus-textil-ambiental",
+      "type": "product",
       "name": "Aromatizante Saphirus Textil y Ambiental",
-      "description": "Fragancia textil concentrada original Saphirus para cortinas, ropa de cama y autos. Aroma envolvente y de máxima persistencia.",
       "category": "sahumerios",
-      "subcategory": "saphirus",
+      "shortDesc": "Fragancia concentrada para telas, ambientes y autos.",
+      "description": "Fragancia textil concentrada original Saphirus para cortinas, ropa de cama y autos. Aroma envolvente y de máxima persistencia.",
       "price": 6500,
-      "oldPrice": 8000,
+      "compareAtPrice": 8000,
       "stock": 25,
-      "image": "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80",
       "badge": "Recomendado",
       "isOffer": true,
-      "variants": "Bebé, Marina, Coco Vainilla, Papaya",
-      "sizes": "250cc, 500cc",
-      "has3D": false
+      "weightGrams": null,
+      "dimensionsCm": null,
+      "images": [
+        {
+          "file": "aromatizante-saphirus",
+          "alt": "Aromatizante textil Saphirus",
+          "source": "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1000&q=80"
+        }
+      ],
+      "variants": [
+        {
+          "id": "bebe",
+          "name": "Bebé",
+          "available": true
+        },
+        {
+          "id": "marina",
+          "name": "Marina",
+          "available": true
+        },
+        {
+          "id": "coco-vainilla",
+          "name": "Coco Vainilla",
+          "available": true
+        },
+        {
+          "id": "papaya",
+          "name": "Papaya",
+          "available": true
+        }
+      ],
+      "details": [
+        "Envase de 250 cc o 500 cc"
+      ],
+      "comboItems": [],
+      "families": [
+        "Fresco",
+        "Dulce",
+        "Frutal"
+      ],
+      "moments": [
+        "Hogar",
+        "Trabajo"
+      ],
+      "ingredients": "Fragancia textil concentrada.",
+      "size": "Envase de 250 cc o 500 cc",
+      "usage": "Rociar a distancia sobre telas o ambientes. Evitar el contacto directo con la piel y los ojos.",
+      "care": "",
+      "duration": "",
+      "warnings": "Uso externo. No ingerir. Mantener fuera del alcance de niñas y niños. Evitar el contacto con ojos y piel; ventilar el ambiente.",
+      "giftEligible": true
     },
     {
       "id": 3,
+      "slug": "difusor-de-aromas-electrico-usb",
+      "type": "product",
       "name": "Difusor de Aromas Eléctrico USB",
-      "description": "Humidificador y difusor ultrasónico con iluminación LED RGB tenue. Silencioso, ideal para relajación y home office.",
       "category": "tecnologia",
-      "subcategory": "difusores",
+      "shortDesc": "Humidificador ultrasónico con luz LED tenue y funcionamiento silencioso.",
+      "description": "Humidificador y difusor ultrasónico con iluminación LED RGB tenue. Silencioso, ideal para relajación y home office.",
       "price": 14900,
-      "oldPrice": 18500,
+      "compareAtPrice": 18500,
       "stock": 6,
-      "image": "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=600&q=80",
       "badge": "Tendencia",
       "isOffer": true,
-      "variants": "Madera Clara, Madera Oscura, Blanco",
-      "sizes": "300ml",
-      "has3D": true
+      "weightGrams": null,
+      "dimensionsCm": null,
+      "images": [
+        {
+          "file": "difusor-usb",
+          "alt": "Difusor de aromas eléctrico conectado por USB",
+          "source": "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=1000&q=80"
+        }
+      ],
+      "variants": [
+        {
+          "id": "madera-clara",
+          "name": "Madera clara",
+          "available": true
+        },
+        {
+          "id": "madera-oscura",
+          "name": "Madera oscura",
+          "available": true
+        },
+        {
+          "id": "blanco",
+          "name": "Blanco",
+          "available": true
+        }
+      ],
+      "details": [
+        "Capacidad 300 ml",
+        "Alimentación USB"
+      ],
+      "comboItems": [],
+      "families": [],
+      "moments": [
+        "Hogar",
+        "Relax",
+        "Trabajo"
+      ],
+      "ingredients": "",
+      "size": "Capacidad 300 ml",
+      "usage": "Completar el depósito con agua, encender y regular la luz. Limpiar y secar antes de guardar.",
+      "care": "Desconectar antes de limpiar. Usar un paño suave y seco.",
+      "duration": "",
+      "warnings": "No dejar el equipo encendido sin supervisión. Usar solo con agua; no agregar sustancias que la tienda no haya indicado.",
+      "giftEligible": true
     },
     {
       "id": 4,
+      "slug": "espejo-led-de-belleza-recargable",
+      "type": "product",
       "name": "Espejo LED de Belleza Recargable",
-      "description": "Espejo cosmético touch regulable con 3 niveles de luz para maquillaje y cuidado de la piel. Batería USB de larga duración.",
       "category": "tecnologia",
-      "subcategory": "belleza",
+      "shortDesc": "Espejo cosmético táctil con tres niveles de luz y batería USB.",
+      "description": "Espejo cosmético touch regulable con 3 niveles de luz para maquillaje y cuidado de la piel. Batería USB de larga duración.",
       "price": 18200,
-      "oldPrice": null,
+      "compareAtPrice": null,
       "stock": 9,
-      "image": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80",
       "badge": "Tendencia",
       "isOffer": false,
-      "variants": "Blanco, Rosa, Negro",
-      "sizes": "Estándar",
-      "has3D": false
+      "weightGrams": null,
+      "dimensionsCm": null,
+      "images": [
+        {
+          "file": "espejo-led",
+          "alt": "Espejo LED de belleza con luz regulable",
+          "source": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=1000&q=80"
+        }
+      ],
+      "variants": [
+        {
+          "id": "blanco",
+          "name": "Blanco",
+          "available": true
+        },
+        {
+          "id": "rosa",
+          "name": "Rosa",
+          "available": true
+        },
+        {
+          "id": "negro",
+          "name": "Negro",
+          "available": true
+        }
+      ],
+      "details": [
+        "Medida estándar",
+        "Carga por USB"
+      ],
+      "comboItems": [],
+      "families": [],
+      "moments": [
+        "Hogar"
+      ],
+      "ingredients": "",
+      "size": "Medida estándar",
+      "usage": "Cargar por USB y regular la luz con el control táctil.",
+      "care": "Limpiar con un paño suave y seco. No sumergir.",
+      "duration": "",
+      "warnings": "",
+      "giftEligible": true
     },
     {
       "id": 5,
+      "slug": "mini-taladro-inalambrico-multiuso-pro",
+      "type": "product",
       "name": "Mini Taladro Inalámbrico Multiuso Pro",
-      "description": "Herramienta rotativa recargable de alta precisión para perforación, grabado, pulido y artesanías. Ideal para autos y taller.",
       "category": "herramientas",
-      "subcategory": "inalambricas",
+      "shortDesc": "Herramienta rotativa de precisión con estuche y 24 accesorios.",
+      "description": "Herramienta rotativa recargable de alta precisión para perforación, grabado, pulido y artesanías. Ideal para autos y taller.",
       "price": 34000,
-      "oldPrice": 41000,
+      "compareAtPrice": 41000,
       "stock": 4,
-      "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=600&q=80",
-      "badge": "Más Vendido",
+      "badge": "Más vendido",
       "isOffer": false,
-      "variants": "Negro/Naranja",
-      "sizes": "Kit con Estuche y 24 Accesorios",
-      "has3D": true
+      "weightGrams": null,
+      "dimensionsCm": null,
+      "images": [
+        {
+          "file": "mini-taladro",
+          "alt": "Mini taladro inalámbrico multiuso con accesorios",
+          "source": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=1000&q=80"
+        }
+      ],
+      "variants": [
+        {
+          "id": "negro-naranja",
+          "name": "Negro / Naranja",
+          "available": true
+        }
+      ],
+      "details": [
+        "Kit con estuche y 24 accesorios",
+        "Recargable"
+      ],
+      "comboItems": [],
+      "families": [],
+      "moments": [
+        "Trabajo",
+        "Taller"
+      ],
+      "ingredients": "",
+      "size": "Kit con estuche y 24 accesorios",
+      "usage": "Usar el accesorio adecuado para cada tarea y leer las instrucciones del kit antes de usarlo.",
+      "care": "Desconectar antes de limpiar y guardar en el estuche.",
+      "duration": "",
+      "warnings": "Herramienta de corte y perforación: usá protección ocular y mantenela fuera del alcance de niñas y niños.",
+      "giftEligible": false
     },
     {
       "id": 6,
+      "slug": "kit-limpieza-detailing-automotor",
+      "type": "product",
       "name": "Kit Limpieza y Detailing Automotor",
-      "description": "Set completo de cepillos de cerdas suaves y microfibras de alta absorción para tablero, tapizados y llantas de auto.",
       "category": "herramientas",
-      "subcategory": "automotor",
+      "shortDesc": "Cepillos de cerdas suaves y microfibras para auto.",
+      "description": "Set completo de cepillos de cerdas suaves y microfibras de alta absorción para tablero, tapizados y llantas de auto.",
       "price": 12500,
-      "oldPrice": 15900,
+      "compareAtPrice": 15900,
       "stock": 14,
-      "image": "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=600&q=80",
-      "badge": "Oferta Flash",
+      "badge": "Oferta",
       "isOffer": true,
-      "variants": "Universal",
-      "sizes": "Pack x5 Piezas",
-      "has3D": false
+      "weightGrams": null,
+      "dimensionsCm": null,
+      "images": [
+        {
+          "file": "kit-detailing",
+          "alt": "Kit de limpieza y detailing para automotor",
+          "source": "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=1000&q=80"
+        }
+      ],
+      "variants": [
+        {
+          "id": "universal",
+          "name": "Universal",
+          "available": true
+        }
+      ],
+      "details": [
+        "Pack x5 piezas"
+      ],
+      "comboItems": [],
+      "families": [],
+      "moments": [
+        "Hogar",
+        "Trabajo"
+      ],
+      "ingredients": "",
+      "size": "Pack x5 piezas",
+      "usage": "Usar el cepillo y la microfibra según la superficie. Lavar la microfibra antes del primer uso.",
+      "care": "Enjuagar y secar al aire.",
+      "duration": "",
+      "warnings": "",
+      "giftEligible": true
     }
   ],
-  "reviews": [
+  "reviews": [],
+  "testimonials": [
     {
       "id": 1,
       "name": "Mariana R.",
-      "comment": "Los sahumerios son de increíble calidad, duran muchísimo y el aroma llena toda la casa. Súper recomendado!",
-      "stars": 5,
-      "likes": 14
+      "comment": "Los sahumerios son de increíble calidad, duran muchísimo y el aroma llena toda la casa. Súper recomendado.",
+      "stars": 5
     },
     {
       "id": 2,
       "name": "Gonzalo M.",
-      "comment": "Compré el difusor de aromas y el mini taladro. Llegó todo excelente a Claypole en menos de 24hs. Muy buena atención por WhatsApp.",
-      "stars": 5,
-      "likes": 9
+      "comment": "Compré el difusor de aromas y el mini taladro. Llegó todo excelente a Claypole en menos de 24 hs. Muy buena atención por WhatsApp.",
+      "stars": 5
     },
     {
       "id": 3,
       "name": "Camila V.",
-      "comment": "Las fragancias de Saphirus son 100% originales. Excelente precio y atención.",
-      "stars": 4,
-      "likes": 6
+      "comment": "Las fragancias de Saphirus son originales. Excelente precio y atención.",
+      "stars": 4
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "k-como-comprar",
+      "title": "¿Cómo compro?",
+      "category": "faq",
+      "content": "Elegí el producto y la opción, agregalo al carrito, completá tu nombre y enviá el pedido por WhatsApp. No se cobra nada en la web: la tienda confirma stock, precio y envío antes de cerrar la compra.",
+      "keywords": [
+        "comprar",
+        "compra",
+        "carrito",
+        "pedido",
+        "whatsapp"
+      ],
+      "published": true,
+      "sourceType": "section",
+      "sourceId": "catalogo",
+      "sourceUrl": "",
+      "updatedAt": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "k-envios",
+      "title": "¿Cómo se calcula el envío?",
+      "category": "envio",
+      "content": "El costo depende del código postal, el peso y las medidas del paquete. Podés ingresar tu código postal en la sección Envíos para ver si hay una tarifa cargada. Si no aparece, lo cotizamos por WhatsApp y el valor final se confirma antes de cerrar.",
+      "keywords": [
+        "envio",
+        "envios",
+        "correo",
+        "código postal",
+        "costo"
+      ],
+      "published": true,
+      "sourceType": "section",
+      "sourceId": "envios",
+      "sourceUrl": "",
+      "updatedAt": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "k-retiro",
+      "title": "¿Puedo retirar en Claypole?",
+      "category": "retiro",
+      "content": "Sí, el retiro se coordina por WhatsApp. No tiene costo de envío. La ubicación es Claypole, Pcia. de Buenos Aires.",
+      "keywords": [
+        "retiro",
+        "retirar",
+        "claypole",
+        "local",
+        "pasar"
+      ],
+      "published": true,
+      "sourceType": "section",
+      "sourceId": "envios",
+      "sourceUrl": "",
+      "updatedAt": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "k-pagos",
+      "title": "¿Qué formas de pago tienen?",
+      "category": "pago",
+      "content": "Los medios de pago y las promociones vigentes se confirman por WhatsApp al cerrar el pedido. En la web no se cobra nada.",
+      "keywords": [
+        "pago",
+        "pagar",
+        "cuotas",
+        "tarjeta",
+        "efectivo",
+        "transferencia"
+      ],
+      "published": true,
+      "sourceType": "section",
+      "sourceId": "confianza",
+      "sourceUrl": "",
+      "updatedAt": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "k-cambios",
+      "title": "¿Hay cambios o devoluciones?",
+      "category": "cambios",
+      "content": "Consultanos antes de comprar y te informamos las condiciones vigentes de cambios y devoluciones. No publicamos condiciones que la tienda no haya confirmado.",
+      "keywords": [
+        "cambio",
+        "devolucion",
+        "devolver",
+        "reembolso",
+        "garantia"
+      ],
+      "published": true,
+      "sourceType": "section",
+      "sourceId": "confianza",
+      "sourceUrl": "",
+      "updatedAt": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "k-sahumerios",
+      "title": "Uso responsable de sahumerios",
+      "category": "cuidado",
+      "content": "Encendé la varilla, apagá la llama y dejá que humee sobre una superficie resistente al calor. No dejes sahumerios encendidos sin supervisión, mantenelos lejos de materiales inflamables y ventilá el ambiente.",
+      "keywords": [
+        "sahumerio",
+        "incienso",
+        "seguridad",
+        "advertencia",
+        "uso"
+      ],
+      "published": true,
+      "sourceType": "section",
+      "sourceId": "ayuda",
+      "sourceUrl": "",
+      "updatedAt": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "k-precios-envio",
+      "title": "¿Los precios incluyen el envío?",
+      "category": "faq",
+      "content": "No. Los precios del catálogo son de los productos. El costo de envío se cotiza aparte según el código postal y se confirma antes de cerrar el pedido.",
+      "keywords": [
+        "precio",
+        "incluye",
+        "envio",
+        "total"
+      ],
+      "published": true,
+      "sourceType": "section",
+      "sourceId": "envios",
+      "sourceUrl": "",
+      "updatedAt": "2026-10-22T00:00:00.000Z"
     }
   ]
 }
